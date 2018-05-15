@@ -3,21 +3,38 @@ package com.ro.ClarkeWright.Core;
 public class Node {
 
     private int index;
-    private int x;
-    private int y;
-    private int demand;
+    private int x = 0;
+    private int y = 0;
+    private int demand = 0;
 
     /**
-     * Costruttore della classe
+     * Costruttore vuoto
+     */
+    public Node(){
+
+    }
+    /**
+     * Costruttore che prende i valori stringa degli attributi
      * @param index
      * @param x
      * @param y
      */
-    public Node(int index, int x, int y, int demand){
+    public Node(String index, String x, String y){
+        this.index = Integer.parseInt(index);
+        this.x = Integer.parseInt(x);
+        this.y = Integer.parseInt(y);
+    }
+
+    /**
+     * Costruttore che prende i valori interi degli attributi
+     * @param index
+     * @param x
+     * @param y
+     */
+    public Node(int index, int x, int y){
         this.index = index;
         this.x = x;
         this.y = y;
-        this.demand = demand;
     }
 
     /**
