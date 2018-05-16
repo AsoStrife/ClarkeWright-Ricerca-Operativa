@@ -22,7 +22,7 @@ public class Instance {
     private ArrayList<Node> nodes = new ArrayList<>();
     private ArrayList<Integer> demands = new ArrayList<>();
 
-    //private int[] depotSection;
+    private Node depot = new Node(0, 1, -1);
     //private String eof;
 
     /**
@@ -175,4 +175,9 @@ public class Instance {
     public Node getNode(int i){
         return this.nodes.get(i);
     }
+
+    public Node getDepot() {
+        return depot;
+    }
+
 }
