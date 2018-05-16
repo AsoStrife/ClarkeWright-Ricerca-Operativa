@@ -180,4 +180,7 @@ public class Instance {
         return depot;
     }
 
+    public int nodeSize(){
+        return this.nodes.size();
+    }
 }
