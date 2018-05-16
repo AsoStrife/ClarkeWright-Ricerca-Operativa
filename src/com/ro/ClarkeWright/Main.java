@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.ro.ClarkeWright.Core.Route;
+import com.ro.ClarkeWright.Core.SavingsMatrix;
 import com.ro.ClarkeWright.Manager.FileManager;
 import com.ro.ClarkeWright.Core.Instance;
 import com.ro.ClarkeWright.Core.DistanceMatrix;
@@ -18,10 +19,14 @@ public class Main {
         DistanceMatrix distanceMatrix = new DistanceMatrix(instance.getDepot(), instance.getNodes());
 
         // Calcolo le rotte principali
+        // --- VEDERE SE FA A METTERE TUTTO IN UN METODO ---
         ArrayList<Route> mainRoutes = new ArrayList<Route>();
         for(int i = 0; i < instance.nodeSize(); i++){
             mainRoutes.add( new Route(instance.getDepot(), instance.getNode(i), distanceMatrix));
         }
 
+        SavingsMatrix savingsMatrix = new SavingsMatrix(instance.getDepot(), instance.getNodes(), distanceMatrix);
+
+        savingsMatrix.printSavings();
     }
 }
