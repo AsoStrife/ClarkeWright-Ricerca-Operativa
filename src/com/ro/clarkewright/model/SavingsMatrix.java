@@ -63,12 +63,12 @@ public class SavingsMatrix {
         }
 
         public void order(){
-            int rows = nodes.size()-1;
-            int cols = nodes.size()-1;
+            int rows = nodes.size();
+            int cols = nodes.size();
 
-            List<List<Integer>> l = IntStream.range(0, rows).mapToObj(i ->
+            List<List<Integer>> l = IntStream.range(1, rows).mapToObj(i ->
                     IntStream.range(0, cols).mapToObj(j ->
-                            new double[]{i, j, matrix[rows][cols]}
+                            new double[]{i, j, matrix[i][j]}
                     )
             )
             .flatMap(x -> x).filter(t -> t[0] < t[1])
