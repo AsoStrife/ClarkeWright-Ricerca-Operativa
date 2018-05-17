@@ -3,6 +3,10 @@ package com.ro.clarkewright.model;
 import com.ro.clarkewright.handler.DoubleHandler;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class SavingsMatrix {
     // Nodes list contain all nodes. In the first position (0) there is the depot
@@ -22,6 +26,8 @@ public class SavingsMatrix {
         this.matrix = new double[nodes.size()+1][nodes.size()+1];
 
         savingsHandler();
+
+        order();
     }
 
     /**
@@ -54,5 +60,22 @@ public class SavingsMatrix {
                 }
                 System.out.println();
             }
+        }
+
+        public void order(){
+            int rows = nodes.size()-1;
+            int cols = nodes.size()-1;
+
+            List<List<Integer>> l = IntStream.range(0, rows).mapToObj(i ->
+                    IntStream.range(0, cols).mapToObj(j ->
+                            new double[]{i, j, matrix[rows][cols]}
+                    )
+            )
+            .flatMap(x -> x).filter(t -> t[0] < t[1])
+            .sorted((a, b) -> Double.compare(b[2], a[2]))
+            .map(a -> Arrays.asList((int) a[0], (int) a[1]))
+            .collect(Collectors.toList());
+
+            l.forEach(System.out::println);
         }
 }

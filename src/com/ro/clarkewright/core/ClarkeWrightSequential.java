@@ -39,20 +39,16 @@ public class ClarkeWrightSequential {
             mainRoutes.add( new Route(instance.getDepot(), instance.getNode(i), distanceMatrix));
         }
         // sort
-        orderRoutes();
+        //orderRoutes();
     }
 
     /**
      * Sort the main routes decreasing
-     */
+     * This sort is not required
     public void orderRoutes(){
-        Collections.sort(mainRoutes, new Comparator<Route>() {
-            @Override
-            public int compare(Route c1, Route c2) {
-                return Double.compare(c1.getTotalDistance(), c2.getTotalDistance());
-            }
-        });
+        Collections.sort(mainRoutes, Comparator.comparingDouble(Route::getTotalDistance));
     }
+    */
 
     /**
      * DEBUG METHOD

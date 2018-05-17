@@ -1,9 +1,15 @@
 package com.ro.clarkewright.model;
 
+import java.util.ArrayList;
+
 /**
  *
  */
 public class Route {
+
+    // This array list contain the route of this route
+    // For example 0 -> 1 -> 0 => ArrayList of three element
+    private ArrayList<Node> route = new ArrayList<>();
 
     private DistanceMatrix distanceMatrix;
     private Node depot;
