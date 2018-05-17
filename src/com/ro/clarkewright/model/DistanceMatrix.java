@@ -1,9 +1,11 @@
-package com.ro.ClarkeWright.Core;
+package com.ro.clarkewright.model;
+import com.ro.clarkewright.handler.DoubleHandler;
 
 import java.util.ArrayList;
 
 public class DistanceMatrix {
 
+    // Nodes list contain all nodes. In the first position (0) there is the depot
     private ArrayList<Node> nodes  = new ArrayList<>();
     private double matrix[][];
 
@@ -18,17 +20,15 @@ public class DistanceMatrix {
 
         this.matrix = new double[nodes.size()+1][nodes.size()+1];
 
-        calculateMatrix();
+        distanceHandler();
     }
 
     /**
-     *
+     * Set the matrix attribute with the value
      */
-    private void calculateMatrix(){
+    private void distanceHandler(){
         for (int i = 0; i < nodes.size(); i++) {
-
             for (int j = 0; j < nodes.size(); j++) {
-
                 matrix[nodes.get(i).getIndex()][nodes.get(j).getIndex()] = calculateDistance(nodes.get(i), nodes.get(j));
             }
         }
@@ -38,27 +38,27 @@ public class DistanceMatrix {
      *
      * @param first
      * @param second
-     * @return
+     * @return the distance between two node
      */
     public static double calculateDistance(Node first, Node second){
         double value =  Math.sqrt(Math.pow(first.getX()-second.getX(), 2) + Math.pow(first.getY()-second.getY(), 2));
-        return round(value, 1);
+        return DoubleHandler.round(value, 1);
     }
 
     /**
      *
      * @param first
      * @param second
-     * @return
+     * @return get the distance using the index of the nodes
      */
     public double getDistance(Node first, Node second){
         return matrix[first.getIndex()][second.getIndex()];
     }
 
     /**
-     *
+     * Debug function, print all values
      */
-    public void printMatrix(){
+    public void print(){
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
                 System.out.print(matrix[i][j] + " ");
@@ -67,13 +67,5 @@ public class DistanceMatrix {
         }
     }
 
-    /**
-     *
-     * @param value
-     * @param scale
-     * @return
-     */
-    public static double round(double value, int scale) {
-        return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
-    }
+
 }

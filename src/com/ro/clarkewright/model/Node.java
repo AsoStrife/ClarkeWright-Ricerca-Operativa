@@ -1,4 +1,4 @@
-package com.ro.ClarkeWright.Core;
+package com.ro.clarkewright.model;
 
 public class Node {
 
@@ -7,12 +7,7 @@ public class Node {
     private int y = 0;
     private int demand = 0;
 
-    /**
-     * Costruttore vuoto
-     */
-    public Node(){
 
-    }
     /**
      * Costruttore che prende i valori stringa degli attributi
      * @param index
@@ -77,7 +72,7 @@ public class Node {
     public int getDemand() {
         return demand;
     }
-    public void setDemand(int demand) {
+    public void setDemand(int demand){
         this.demand = demand;
     }
 }

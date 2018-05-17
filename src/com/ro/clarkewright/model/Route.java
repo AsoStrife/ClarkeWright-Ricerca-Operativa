@@ -1,4 +1,4 @@
-package com.ro.ClarkeWright.Core;
+package com.ro.clarkewright.model;
 
 /**
  *
@@ -12,6 +12,12 @@ public class Route {
     private double distance;
     private double totalDistance;
 
+    /**
+     * Starting by two nodes, calculate the distances roundtrip
+     * @param depot
+     * @param destination
+     * @param distanceMatrix
+     */
     public Route(Node depot, Node destination, DistanceMatrix distanceMatrix){
         this.distanceMatrix = distanceMatrix;
         this.depot = depot;
@@ -44,6 +50,14 @@ public class Route {
 
     public void setDestination(Node destination) {
         this.destination = destination;
+    }
+
+    public Node getDepot() {
+        return depot;
+    }
+
+    public void setDepot(Node depot) {
+        this.depot = depot;
     }
 }
 

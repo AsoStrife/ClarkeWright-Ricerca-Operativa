@@ -1,4 +1,8 @@
-package com.ro.ClarkeWright.Core;
+package com.ro.clarkewright.core;
+
+import com.ro.clarkewright.model.Node;
+import com.ro.clarkewright.manager.FileManager;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.BufferedReader;
@@ -27,15 +31,28 @@ public class Instance {
 
     /**
      *
-     * @param file
+     * @param filePath
      * @throws IOException
      */
-    public Instance(BufferedReader file) throws IOException {
-        this.file = file;
+    public Instance(String filePath){
+        // Read the file
+        readFile(filePath);
+        // Concatenate the BufferReader line into only one string with \n as end line
         String string = file.lines().collect(Collectors.joining("\n"));
+        // Set the main attribute as name, comment, type, dimension etc
         this.setInstanceMainAttributes(string);
+        // Set the list of Nodes
         this.setNodes(string);
+        // Set the list of demands
         this.setDemands(string);
+    }
+
+    /**
+     * Set the attribute BufferReader file
+     * @param filePath
+      */
+    private void readFile(String filePath){
+        this.file = FileManager.read(filePath);
     }
 
     /**
@@ -176,10 +193,18 @@ public class Instance {
         return this.nodes.get(i);
     }
 
+    /**
+     *
+     * @return depot Node
+     */
     public Node getDepot() {
         return depot;
     }
 
+    /**
+     *
+     * @return the size of the node list
+     */
     public int nodeSize(){
         return this.nodes.size();
     }
