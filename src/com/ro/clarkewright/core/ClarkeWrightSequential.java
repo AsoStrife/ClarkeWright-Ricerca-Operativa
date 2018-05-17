@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class ClarkeWrightSequential {
-    // Contain the .vrp file istance
+    // Contain the .vrp file instance
     Instance instance;
 
     // This object contain the distance matrix
@@ -66,7 +66,7 @@ public class ClarkeWrightSequential {
 
         System.out.println("-- ROUTE DISTANCES --");
         for (int i = 0; i < mainRoutes.size(); i++) {
-            System.out.println(mainRoutes.get(i).getTotalDistance());
+            System.out.println("Total distance: " + mainRoutes.get(i).getTotalDistance() + ". Route: " + mainRoutes.get(i).getDepot().getIndex() + " " + mainRoutes.get(i).getDestination().getIndex() + " " + mainRoutes.get(i).getDepot().getIndex());
         }
     }
 }

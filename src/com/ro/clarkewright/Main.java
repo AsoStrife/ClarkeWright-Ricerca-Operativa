@@ -1,5 +1,4 @@
 package com.ro.clarkewright;
-import java.util.ArrayList;
 
 import com.ro.clarkewright.core.ClarkeWrightSequential;
 import com.ro.clarkewright.core.Instance;
