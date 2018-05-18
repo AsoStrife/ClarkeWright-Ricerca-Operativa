@@ -45,12 +45,32 @@ public class Route {
         }
     }
 
+    /**
+     * Elimino il depot, aggiungo il nuovo nodo, riaggiungo il depot alla fine e
+     * ricalcolo le distanze
+     * @param n
+     */
+    public void addNode(Node n){
+        int size = route.size();
+
+        // Tolgo il depot
+        route.remove(size-1);
+        // Aggiungo il nuovo nodo
+        route.add(n);
+        // Riaggiungo il depot
+        route.add(route.get(0));
+        // Ricalcolo la disana percorsa nuovamente da questa rotta
+        calculateDistance();
+    }
+
+    /**
+     *
+     * @return
+     */
     public double getDistance() {
         return distance;
     }
 
-    public void setDistance(double totalDistance) {
-        this.distance = totalDistance;
-    }
+
 }
 
