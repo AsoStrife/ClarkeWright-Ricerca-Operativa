@@ -14,8 +14,7 @@ public class DistanceMatrix {
      * @param depot
      * @param nodes
      */
-    public DistanceMatrix(Node depot, ArrayList<Node> nodes){
-        this.nodes.add(depot);
+    public DistanceMatrix( ArrayList<Node> nodes){
         this.nodes.addAll(nodes);
 
         this.matrix = new double[nodes.size()+1][nodes.size()+1];

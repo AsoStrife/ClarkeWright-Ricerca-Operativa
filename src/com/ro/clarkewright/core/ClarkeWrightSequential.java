@@ -1,15 +1,17 @@
 package com.ro.clarkewright.core;
 
 import com.ro.clarkewright.model.DistanceMatrix;
+import com.ro.clarkewright.model.Node;
 import com.ro.clarkewright.model.Route;
 import com.ro.clarkewright.model.SavingsMatrix;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class ClarkeWrightSequential {
     // Contain the .vrp file instance
     Instance instance;
+
+    // All nodes with depot in position 0
+    private ArrayList<Node> nodes = new ArrayList<>();
 
     // This object contain the distance matrix
     private DistanceMatrix distanceMatrix;
@@ -22,13 +24,18 @@ public class ClarkeWrightSequential {
 
     public ClarkeWrightSequential(Instance instance){
         this.instance = instance;
-        this.distanceMatrix = new DistanceMatrix(instance.getDepot(), instance.getNodes());
-        this.savingsMatrix = new SavingsMatrix(instance.getDepot(), instance.getNodes(), distanceMatrix);
+
+        // Now nodes contain all nodes with depot in 0 position
+        this.nodes.add(instance.getDepot());
+        this.nodes.addAll(instance.getNodes());
+
+        this.distanceMatrix = new DistanceMatrix(nodes);
+        this.savingsMatrix = new SavingsMatrix(nodes, distanceMatrix);
 
         // generate the main routes
         mainRoutesHandler();
 
-        debug();
+        //debug();
     }
 
     /**
@@ -38,17 +45,16 @@ public class ClarkeWrightSequential {
         for(int i = 0; i < instance.nodeSize(); i++){
             mainRoutes.add( new Route(instance.getDepot(), instance.getNode(i), distanceMatrix, instance.getCapacity()));
         }
-        // sort
-        //orderRoutes();
     }
 
-    /**
-     * Sort the main routes decreasing
-     * This sort is not required
-    public void orderRoutes(){
-        Collections.sort(mainRoutes, Comparator.comparingDouble(Route::getTotalDistance));
+
+    public void run(){
+        // Per ogni elemento della savingList ordinata
+        for(int i = 0; i < savingsMatrix.getOrderedSavingsList().size(); i++){
+            System.out.println(savingsMatrix.getElementOrderedSavingList(i));
+        }
     }
-    */
+
 
     /**
      * DEBUG METHOD
@@ -63,10 +69,5 @@ public class ClarkeWrightSequential {
         System.out.println("-- ORDERED SAVING LIST --");
         savingsMatrix.printOrderedSavingsList();
 
-        /**
-        System.out.println("-- ROUTE DISTANCES --");
-        for (int i = 0; i < mainRoutes.size(); i++) {
-            System.out.println("Total distance: " + mainRoutes.get(i).getTotalDistance() + ". Route: " + mainRoutes.get(i).getDepot().getIndex() + " " + mainRoutes.get(i).getDestination().getIndex() + " " + mainRoutes.get(i).getDepot().getIndex());
-        }**/
     }
 }

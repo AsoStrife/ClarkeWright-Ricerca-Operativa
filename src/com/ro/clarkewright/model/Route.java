@@ -13,7 +13,8 @@ public class Route {
 
     private DistanceMatrix distanceMatrix;
     private double distance = 0;
-    private int capacity;
+    private int capacity = 100;
+    private int totalDemand = 0;
 
     /**
      * Starting by two nodes, calculate the distances roundtrip

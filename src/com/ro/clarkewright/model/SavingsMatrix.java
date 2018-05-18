@@ -18,9 +18,8 @@ public class SavingsMatrix {
     // Questa lista contiene gli indici della matrice in ordine decrescente
     private List<List<Integer>> orderedSavingsList;
 
-    public SavingsMatrix(Node depot, ArrayList<Node> nodes, DistanceMatrix distances){
-        // The first nodes is the depot
-        this.nodes.add(depot);
+    public SavingsMatrix(ArrayList<Node> nodes, DistanceMatrix distances){
+
         this.nodes.addAll(nodes);
         // distance matrix
         this.distances = distances;
