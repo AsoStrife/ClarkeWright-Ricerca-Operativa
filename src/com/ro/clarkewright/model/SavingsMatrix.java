@@ -71,7 +71,7 @@ public class SavingsMatrix {
         .map(a -> Arrays.asList((int) a[0], (int) a[1]))
         .collect(Collectors.toList());
 
-        //l.forEach(System.out::println);
+        //orderedSavingsList.forEach(System.out::println);
     }
 
     /**
