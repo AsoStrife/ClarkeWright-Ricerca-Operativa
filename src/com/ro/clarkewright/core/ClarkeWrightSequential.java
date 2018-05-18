@@ -36,7 +36,7 @@ public class ClarkeWrightSequential {
      */
     public void mainRoutesHandler(){
         for(int i = 0; i < instance.nodeSize(); i++){
-            mainRoutes.add( new Route(instance.getDepot(), instance.getNode(i), distanceMatrix));
+            mainRoutes.add( new Route(instance.getDepot(), instance.getNode(i), distanceMatrix, instance.getCapacity()));
         }
         // sort
         //orderRoutes();

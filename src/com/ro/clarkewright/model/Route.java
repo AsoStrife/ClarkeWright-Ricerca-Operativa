@@ -12,11 +12,8 @@ public class Route {
     private ArrayList<Node> route = new ArrayList<>();
 
     private DistanceMatrix distanceMatrix;
-    private Node depot;
-    private Node destination;
-
-    private double distance;
-    private double totalDistance;
+    private double distance = 0;
+    private int capacity;
 
     /**
      * Starting by two nodes, calculate the distances roundtrip
@@ -24,14 +21,28 @@ public class Route {
      * @param destination
      * @param distanceMatrix
      */
-    public Route(Node depot, Node destination, DistanceMatrix distanceMatrix){
+    public Route(Node depot, Node destination, DistanceMatrix distanceMatrix, int capacity){
         this.distanceMatrix = distanceMatrix;
-        this.depot = depot;
-        this.destination = destination;
+        this.capacity = capacity;
 
-        this.distance = distanceMatrix.getDistance(depot, destination);
-        this.totalDistance = distance * 2; // Andata e ritorno
+        // Creo la rotta base: deposito, destinazione, deposito
+        route.add(depot);
+        route.add(destination);
+        route.add(depot);
 
+        calculateDistance();
+
+    }
+
+    /**
+     * Calcolo le distanze tra i nodi. size-1 perché l'ultimo elemento sarà sempre il depot e quindi non devo
+     * calcolare depot + 1 che va in overflow
+     */
+    public void calculateDistance(){
+        int size = route.size();
+        for(int i = 0; i < size-1; i++){
+            distance = distance + distanceMatrix.getDistance(route.get(i), route.get(i+1));
+        }
     }
 
     public double getDistance() {
@@ -40,30 +51,6 @@ public class Route {
 
     public void setDistance(double totalDistance) {
         this.distance = totalDistance;
-    }
-
-    public double getTotalDistance() {
-        return totalDistance;
-    }
-
-    public void setTotalDistance(double totalDistance) {
-        this.totalDistance = totalDistance;
-    }
-
-    public Node getDestination() {
-        return destination;
-    }
-
-    public void setDestination(Node destination) {
-        this.destination = destination;
-    }
-
-    public Node getDepot() {
-        return depot;
-    }
-
-    public void setDepot(Node depot) {
-        this.depot = depot;
     }
 }
 
