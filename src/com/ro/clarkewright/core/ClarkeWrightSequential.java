@@ -60,9 +60,13 @@ public class ClarkeWrightSequential {
         System.out.println("-- SAVINGS MATRIX --");
         savingsMatrix.print();
 
+        System.out.println("-- ORDERED SAVING LIST --");
+        savingsMatrix.printOrderedSavingsList();
+
+        /**
         System.out.println("-- ROUTE DISTANCES --");
         for (int i = 0; i < mainRoutes.size(); i++) {
             System.out.println("Total distance: " + mainRoutes.get(i).getTotalDistance() + ". Route: " + mainRoutes.get(i).getDepot().getIndex() + " " + mainRoutes.get(i).getDestination().getIndex() + " " + mainRoutes.get(i).getDepot().getIndex());
-        }
+        }**/
     }
 }
