@@ -11,6 +11,8 @@ public class Main {
         Instance instance = new Instance("./data/A-VRP/A-n32-k5.vrp");
         // Create object ClarkeWrightSequential
         ClarkeWrightSequential cws = new ClarkeWrightSequential(instance);
+
         cws.run();
+        cws.debug();
     }
 }

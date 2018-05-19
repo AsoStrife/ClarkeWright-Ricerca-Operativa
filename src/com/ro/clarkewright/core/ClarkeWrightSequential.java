@@ -22,6 +22,8 @@ public class ClarkeWrightSequential {
     // Contain the main routes
     private ArrayList<Route> mainRoutes = new ArrayList<>();
 
+    private ArrayList<Route> finalRoutes = new ArrayList<>();
+
     public ClarkeWrightSequential(Instance instance){
         this.instance = instance;
 
@@ -34,8 +36,6 @@ public class ClarkeWrightSequential {
 
         // generate the main routes
         mainRoutesHandler();
-
-        //debug();
     }
 
     /**
@@ -43,7 +43,7 @@ public class ClarkeWrightSequential {
      */
     public void mainRoutesHandler(){
         for(int i = 0; i < instance.nodeSize(); i++){
-            mainRoutes.add( new Route(instance.getDepot(), instance.getNode(i), distanceMatrix, instance.getCapacity()));
+            mainRoutes.add( new Route(instance.getDepot(), instance.getNode(i), distanceMatrix);
         }
     }
 
@@ -51,23 +51,59 @@ public class ClarkeWrightSequential {
     public void run(){
         // Per ogni elemento della savingList ordinata
         for(int i = 0; i < savingsMatrix.getOrderedSavingsList().size(); i++){
-            System.out.println(savingsMatrix.getElementOrderedSavingList(i));
+
+            // I due oggetti nodi della coppia [es: (4,5)] ottenendo i valori dalla matrice dei risparmi
+            Node nodeA = nodes.get( savingsMatrix.getElementOrderedSavingList(i).get(0) );
+            Node nodeB = nodes.get( savingsMatrix.getElementOrderedSavingList(i).get(1) );
+
+            // Ottengo le rotte che contengono i due nodi da mergiare (eventualmente)
+            //Route routeA = mainRoutes.get(indexRoute(nodeA.getIndex()));
+            //Route routeB = mainRoutes.get(indexRoute(nodeB.getIndex()));
+
+            /*
+            if(routeA.isMergeable(nodeA, nodeB) == true){
+                System.out.println("Route: " + (nodeA.getIndex()) + " is mergeable with route:" + (nodeB.getIndex()));
+
+                // CONTROLLO CHE CI SIA UNA finalRoute con uno di questi due nodi. Se non c'è la creo altrimenti aggiungo il nodo in coda
+                if(finalRoutes.size() == 0){
+
+                }
+                Route finalA = finalRoutes.get(checkExistFinalRouteWithNode(nodeA.getIndex()));
+                Route finalB = finalRoutes.get(checkExistFinalRouteWithNode(nodeA.getIndex()));
+
+                routeA.addNode(nodeB);
+            }
+            else {
+                System.out.println("Route: " + (nodeA.getIndex()) + " is not mergeable with route:" + (nodeB.getIndex()));
+            }
+               */
+            //return;
         }
     }
 
+    private int checkExistFinalRouteWithNode(int index){
+        for(int i = 0; i < finalRoutes.size(); i++) {
+            if(mainRoutes.get(i).checkContainNode(index) == true)
+                return i;
+        }
+        return -1;
+    }
 
     /**
      * DEBUG METHOD
      */
-    private void debug(){
+    public void debug(){
+        /**
         System.out.println("-- DISTANCE MATRIX --");
         distanceMatrix.print();
 
         System.out.println("-- SAVINGS MATRIX --");
         savingsMatrix.print();
+        **/
 
-        System.out.println("-- ORDERED SAVING LIST --");
-        savingsMatrix.printOrderedSavingsList();
-
+        //System.out.println("-- ORDERED SAVING LIST --");
+        //savingsMatrix.printOrderedSavingsList();
+        for(int i = 0; i < mainRoutes.size(); i++)
+            mainRoutes.get(i).print(i);
     }
 }

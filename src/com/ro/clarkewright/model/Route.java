@@ -13,7 +13,6 @@ public class Route {
 
     private DistanceMatrix distanceMatrix;
     private double distance = 0;
-    private int capacity;
     private int demand = 0;
 
     /**
@@ -22,9 +21,8 @@ public class Route {
      * @param destination
      * @param distanceMatrix
      */
-    public Route(Node depot, Node destination, DistanceMatrix distanceMatrix, int capacity){
+    public Route(Node depot, Node destination, DistanceMatrix distanceMatrix){
         this.distanceMatrix = distanceMatrix;
-        this.capacity = capacity;
 
         // Creo la rotta base: deposito, destinazione, deposito
         routes.add(depot);
@@ -35,6 +33,26 @@ public class Route {
 
     }
 
+    /**
+     *
+     * @param depot
+     * @param nodeA
+     * @param distanceMatrix
+     * @param capacity
+     */
+    public Route(Node depot, Node nodeA, Node nodeB, DistanceMatrix distanceMatrix, int capacity){
+        this.distanceMatrix = distanceMatrix;
+        this.capacity = capacity;
+
+        // Creo la rotta base: deposito, destinazione, deposito
+        routes.add(depot);
+        routes.add(nodeA);
+        routes.add(nodeB);
+        routes.add(depot);
+
+        calculateDistance();
+
+    }
     /**
      * Calcolo le distanze tra i nodi. size-1 perché l'ultimo elemento sarà sempre il depot e quindi non devo
      * calcolare depot + 1 che va in overflow
@@ -53,19 +71,34 @@ public class Route {
             demand = demand + routes.get(i).getDemand();
         }
 
-        if(demand > capacity){
-            throw new RuntimeException("Demand supera capacity");
-        }
+    }
+
+    /**
+     * Controlla che sia possibile fare il merge con un nuovo nodo,
+     * ovvero deve soddisfare le 3 condizioni:
+     * Non superare la capacità max sommando le demnad
+     * Non deve contenere già il nodo nella route
+     * Il nodo dev'essere il primo o l'ultimo (escluso il depot)
+     * @param n
+     */
+    public boolean isMergeable(Node a, Node b){
+
+        if(checkNewDemand(b) == true && checkContainNode(b.getIndex()) == false && checkIsFirstOrLast(a))
+            return true;
+        else
+            return false;
+
     }
 
     /**
      *
-     * @param newDemand
+     * @param n
      * @return
      */
-    private boolean checkDemand(int newDemand){
-        if(demand + newDemand > 500)
+    private boolean checkNewDemand(Node n){
+        if(demand + n.getDemand() > 500) {
             return false;
+        }
         else
             return  true;
     }
@@ -75,11 +108,18 @@ public class Route {
      * @param n
      * @return
      */
-    private boolean checkContainNode(Node n){
+    public boolean checkContainNode(int index){
+        /*
         if(routes.contains(n))
             return true;
         else
             return false;
+            */
+        for(int i = 0; i < routes.size(); i++){
+            if(routes.get(i).getIndex() == index)
+                return true;
+        }
+        return false;
     }
 
     /**
@@ -89,12 +129,11 @@ public class Route {
      */
     private boolean checkIsFirstOrLast(Node n){
         int size = routes.size();
-
         if(routes.get(1).equals(n))
             return true;
-        if(routes.get(size - 2).equals(n))
+        if(routes.get(size - 2).equals(n)) {
             return true;
-
+        }
         return false;
     }
 
@@ -124,6 +163,15 @@ public class Route {
         return distance;
     }
 
+
+    public void print(int index){
+        System.out.print("Route #" + index + ": ");
+        for(int i = 0; i < routes.size(); i++){
+            System.out.print(routes.get(i).getIndex() + " ");
+        }
+        System.out.println(" ");
+
+    }
 
 }
 
