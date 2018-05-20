@@ -42,7 +42,6 @@ public class Route {
      */
     public Route(Node depot, Node nodeA, Node nodeB, DistanceMatrix distanceMatrix, int capacity){
         this.distanceMatrix = distanceMatrix;
-        this.capacity = capacity;
 
         // Creo la rotta base: deposito, destinazione, deposito
         routes.add(depot);
@@ -74,52 +73,17 @@ public class Route {
     }
 
     /**
-     * Controlla che sia possibile fare il merge con un nuovo nodo,
-     * ovvero deve soddisfare le 3 condizioni:
-     * Non superare la capacità max sommando le demnad
-     * Non deve contenere già il nodo nella route
-     * Il nodo dev'essere il primo o l'ultimo (escluso il depot)
-     * @param n
-     */
-    public boolean isMergeable(Node a, Node b){
-
-        if(checkNewDemand(b) == true && checkContainNode(b.getIndex()) == false && checkIsFirstOrLast(a))
-            return true;
-        else
-            return false;
-
-    }
-
-    /**
      *
      * @param n
      * @return
      */
-    private boolean checkNewDemand(Node n){
-        if(demand + n.getDemand() > 500) {
-            return false;
-        }
-        else
-            return  true;
-    }
+    public boolean checkContainNode(Node n){
 
-    /**
-     *
-     * @param n
-     * @return
-     */
-    public boolean checkContainNode(int index){
-        /*
         if(routes.contains(n))
             return true;
         else
             return false;
-            */
-        for(int i = 0; i < routes.size(); i++){
-            if(routes.get(i).getIndex() == index)
-                return true;
-        }
-        return false;
+
     }
 
     /**
@@ -127,7 +91,7 @@ public class Route {
      * @param n
      * @return
      */
-    private boolean checkIsFirstOrLast(Node n){
+    public boolean checkIsFirstOrLast(Node n){
         int size = routes.size();
         if(routes.get(1).equals(n))
             return true;
@@ -173,5 +137,8 @@ public class Route {
 
     }
 
+    public int getDemand(){
+        return demand;
+    }
 }
 

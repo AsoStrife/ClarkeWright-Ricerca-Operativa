@@ -22,8 +22,6 @@ public class ClarkeWrightSequential {
     // Contain the main routes
     private ArrayList<Route> mainRoutes = new ArrayList<>();
 
-    private ArrayList<Route> finalRoutes = new ArrayList<>();
-
     public ClarkeWrightSequential(Instance instance){
         this.instance = instance;
 
@@ -43,7 +41,7 @@ public class ClarkeWrightSequential {
      */
     public void mainRoutesHandler(){
         for(int i = 0; i < instance.nodeSize(); i++){
-            mainRoutes.add( new Route(instance.getDepot(), instance.getNode(i), distanceMatrix);
+            mainRoutes.add( new Route(instance.getDepot(), instance.getNode(i), distanceMatrix));
         }
     }
 
@@ -57,33 +55,32 @@ public class ClarkeWrightSequential {
             Node nodeB = nodes.get( savingsMatrix.getElementOrderedSavingList(i).get(1) );
 
             // Ottengo le rotte che contengono i due nodi da mergiare (eventualmente)
-            //Route routeA = mainRoutes.get(indexRoute(nodeA.getIndex()));
-            //Route routeB = mainRoutes.get(indexRoute(nodeB.getIndex()));
+            Route routeA = mainRoutes.get(getIndexRoute(nodeA));
+            Route routeB = mainRoutes.get(getIndexRoute(nodeB));
 
-            /*
-            if(routeA.isMergeable(nodeA, nodeB) == true){
-                System.out.println("Route: " + (nodeA.getIndex()) + " is mergeable with route:" + (nodeB.getIndex()));
+            // Se i nodi A e B sono contenuti nella stessa route non rispettano la condizione (i), ovvero stanno sulla stessa route e non vanno mergiati
+            if(routeA == routeB)
+                continue;
 
-                // CONTROLLO CHE CI SIA UNA finalRoute con uno di questi due nodi. Se non c'è la creo altrimenti aggiungo il nodo in coda
-                if(finalRoutes.size() == 0){
+            // I nodi A e B devono essere rispettivamente i primi o ultimi della loro route, altrimenti non posso mergiarli. Condizione (iii)
+            if(routeA.checkIsFirstOrLast(nodeA) == false || routeB.checkIsFirstOrLast(nodeB) == false)
+                continue;
 
-                }
-                Route finalA = finalRoutes.get(checkExistFinalRouteWithNode(nodeA.getIndex()));
-                Route finalB = finalRoutes.get(checkExistFinalRouteWithNode(nodeA.getIndex()));
+            // Condizione (ii) per poter mergiare le route non devo superare la capacità del veicolo
+            if(routeA.getDemand() + routeB.getDemand() > instance.getCapacity())
+                continue;
 
-                routeA.addNode(nodeB);
-            }
-            else {
-                System.out.println("Route: " + (nodeA.getIndex()) + " is not mergeable with route:" + (nodeB.getIndex()));
-            }
-               */
+            System.out.println("Route: " + (nodeA.getIndex()) + " is mergeable with route:" + (nodeB.getIndex()));
+
+
+            // System.out.println("Route: " + (nodeA.getIndex()) + " is not mergeable with route:" + (nodeB.getIndex()));
             //return;
         }
     }
 
-    private int checkExistFinalRouteWithNode(int index){
-        for(int i = 0; i < finalRoutes.size(); i++) {
-            if(mainRoutes.get(i).checkContainNode(index) == true)
+    private int getIndexRoute(Node n){
+        for(int i = 0; i < mainRoutes.size(); i++) {
+            if(mainRoutes.get(i).checkContainNode(n) == true)
                 return i;
         }
         return -1;
