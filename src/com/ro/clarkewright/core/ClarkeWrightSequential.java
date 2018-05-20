@@ -58,23 +58,30 @@ public class ClarkeWrightSequential {
             Route routeA = mainRoutes.get(getIndexRoute(nodeA));
             Route routeB = mainRoutes.get(getIndexRoute(nodeB));
 
-            // Se i nodi A e B sono contenuti nella stessa route non rispettano la condizione (i), ovvero stanno sulla stessa route e non vanno mergiati
-            if(routeA == routeB)
+            // (i) Se i nodi A e B sono contenuti nella stessa route non rispettano la condizione (i), ovvero stanno sulla stessa route e non vanno mergiati
+            if(routeA == routeB){
+                //System.out.println("(i) Route: " + (nodeA.getIndex()) + " is not mergeable with route: " + (nodeB.getIndex()));
                 continue;
+            }
 
-            // I nodi A e B devono essere rispettivamente i primi o ultimi della loro route, altrimenti non posso mergiarli. Condizione (iii)
-            if(routeA.checkIsFirstOrLast(nodeA) == false || routeB.checkIsFirstOrLast(nodeB) == false)
+            // (iii) I nodi A e B devono essere rispettivamente i primi o ultimi della loro route, altrimenti non posso mergiarli. Condizione (iii)
+            if(routeA.checkIsFirstOrLast(nodeA) == false || routeB.checkIsFirstOrLast(nodeB) == false){
+                //System.out.println("(iii) Route: " + (nodeA.getIndex()) + " is not mergeable with route: " + (nodeB.getIndex()));
                 continue;
+            }
 
-            // Condizione (ii) per poter mergiare le route non devo superare la capacità del veicolo
-            if(routeA.getDemand() + routeB.getDemand() > instance.getCapacity())
+            // (ii) Condizione (ii) per poter mergiare le route non devo superare la capacità del veicolo
+            if(routeA.getDemand() + routeB.getDemand() > instance.getCapacity()){
+                //System.out.println("(ii) Route: " + (nodeA.getIndex()) + " is not mergeable with route: " + (nodeB.getIndex()));
                 continue;
+            }
 
-            System.out.println("Route: " + (nodeA.getIndex()) + " is mergeable with route:" + (nodeB.getIndex()));
+            //System.out.println("Route: " + (nodeA.getIndex()) + " is mergeable with route:" + (nodeB.getIndex()));
 
+            routeA.merge(routeB.getRoutes());
+            //routeA.print();
+            mainRoutes.remove(routeB);
 
-            // System.out.println("Route: " + (nodeA.getIndex()) + " is not mergeable with route:" + (nodeB.getIndex()));
-            //return;
         }
     }
 
@@ -100,7 +107,8 @@ public class ClarkeWrightSequential {
 
         //System.out.println("-- ORDERED SAVING LIST --");
         //savingsMatrix.printOrderedSavingsList();
+        System.out.println("Size: " + mainRoutes.size());
         for(int i = 0; i < mainRoutes.size(); i++)
-            mainRoutes.get(i).print(i);
+            mainRoutes.get(i).print();
     }
 }

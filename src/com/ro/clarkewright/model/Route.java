@@ -30,28 +30,9 @@ public class Route {
         routes.add(depot);
 
         calculateDistance();
-
+        calculateDemand();
     }
 
-    /**
-     *
-     * @param depot
-     * @param nodeA
-     * @param distanceMatrix
-     * @param capacity
-     */
-    public Route(Node depot, Node nodeA, Node nodeB, DistanceMatrix distanceMatrix, int capacity){
-        this.distanceMatrix = distanceMatrix;
-
-        // Creo la rotta base: deposito, destinazione, deposito
-        routes.add(depot);
-        routes.add(nodeA);
-        routes.add(nodeB);
-        routes.add(depot);
-
-        calculateDistance();
-
-    }
     /**
      * Calcolo le distanze tra i nodi. size-1 perché l'ultimo elemento sarà sempre il depot e quindi non devo
      * calcolare depot + 1 che va in overflow
@@ -66,7 +47,7 @@ public class Route {
     public void calculateDemand(){
         int size = routes.size();
         demand = 0;
-        for(int i = 1; i < size-1; i++){
+        for(int i = 0; i < size; i++){
             demand = demand + routes.get(i).getDemand();
         }
 
@@ -86,6 +67,19 @@ public class Route {
 
     }
 
+    public void merge(ArrayList<Node> newRoutes){
+
+        routes.remove(routes.size()-1); // Rimuovo il depot delle routes
+        newRoutes.remove(0); // Rimuovo il depot dall'inizio delle routes da mergiare
+        newRoutes.remove(newRoutes.size()-1); // Rimuovo il depot dalla fine delle routes da mergiare
+        // Aggiungo le rotte
+        routes.addAll(newRoutes);
+        // Riaggiungo il depot
+        routes.add(routes.get(0));
+        // Ricalcolo le demand
+        calculateDemand();
+    }
+
     /**
      *
      * @param n
@@ -93,6 +87,10 @@ public class Route {
      */
     public boolean checkIsFirstOrLast(Node n){
         int size = routes.size();
+
+        if(size < 3)
+            return false;
+
         if(routes.get(1).equals(n))
             return true;
         if(routes.get(size - 2).equals(n)) {
@@ -101,23 +99,7 @@ public class Route {
         return false;
     }
 
-    /**
-     * Elimino il depot, aggiungo il nuovo nodo, riaggiungo il depot alla fine e
-     * ricalcolo le distanze
-     * @param n
-     */
-    public void addNode(Node n){
-        int size = routes.size();
 
-        // Tolgo il depot
-        routes.remove(size-1);
-        // Aggiungo il nuovo nodo
-        routes.add(n);
-        // Riaggiungo il depot
-        routes.add(routes.get(0));
-        // Ricalcolo la disana percorsa nuovamente da questa rotta
-        calculateDistance();
-    }
 
     /**
      *
@@ -128,17 +110,23 @@ public class Route {
     }
 
 
-    public void print(int index){
-        System.out.print("Route #" + index + ": ");
+    public void print(){
+        System.out.print("Route: ");
         for(int i = 0; i < routes.size(); i++){
             System.out.print(routes.get(i).getIndex() + " ");
         }
+        System.out.print("| Demand: " + demand);
         System.out.println(" ");
 
     }
 
     public int getDemand(){
         return demand;
+    }
+
+
+    public ArrayList<Node> getRoutes(){
+        return routes;
     }
 }
 
