@@ -109,6 +109,14 @@ public class Route {
         return distance;
     }
 
+    public int getDemand(){
+        return demand;
+    }
+
+
+    public ArrayList<Node> getRoutes(){
+        return routes;
+    }
 
     public void print(){
         System.out.print("Route: ");
@@ -118,15 +126,6 @@ public class Route {
         System.out.print("| Demand: " + demand);
         System.out.println(" ");
 
-    }
-
-    public int getDemand(){
-        return demand;
-    }
-
-
-    public ArrayList<Node> getRoutes(){
-        return routes;
     }
 }
 
