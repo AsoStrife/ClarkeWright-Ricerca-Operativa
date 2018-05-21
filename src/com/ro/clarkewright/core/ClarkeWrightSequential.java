@@ -54,46 +54,61 @@ public class ClarkeWrightSequential {
      * Executes the algorithm
      */
     public void run(){
-        // For each element of the ordered savings list
-        for(int i = 0; i < savingsMatrix.getOrderedSavingsList().size(); i++){
+        // For the each element of the main routes
+        for(int i = 0; i < mainRoutes.size(); i++){
 
-            // These are the two object nodes of the pair [es: (4,5)] from which we take the savings value
-            Node nodeA = nodes.get( savingsMatrix.getElementOrderedSavingList(i).get(0) );
-            Node nodeB = nodes.get( savingsMatrix.getElementOrderedSavingList(i).get(1) );
+            // The route will be merged with other nodes in the saving list
+            Route route = mainRoutes.get(i);
 
-            // Gets the routes which contain two nodes that eventually can be merged
-            Route routeA = mainRoutes.get(getIndexRoute(nodeA));
-            Route routeB = mainRoutes.get(getIndexRoute(nodeB));
+            // For each element of the ordered savings list
+            for(int j = 0; j < savingsMatrix.getOrderedSavingsList().size();j++){
 
-            // (i) A e B can't stay in the same route, otherwise they can't be merged
-            if(routeA == routeB){
-                // @Debug
-                //System.out.println("(i) Route: " + (nodeA.getIndex()) + " is not mergeable with route: " + (nodeB.getIndex()));
-                continue;
-            }
+                // These are the two object nodes of the pair [es: (4,5)] from which we take the savings value
+                Node nodeA = nodes.get( savingsMatrix.getElementOrderedSavingList(j).get(0) );
+                Node nodeB = nodes.get( savingsMatrix.getElementOrderedSavingList(j).get(1) );
 
-            // (ii) A e B must be the first or the last client of their route, otherwise they can't be merged
-            if(routeA.checkIsFirstOrLast(nodeA) == false || routeB.checkIsFirstOrLast(nodeB) == false){
-                // @Debug
-                //System.out.println("(iii) Route: " + (nodeA.getIndex()) + " is not mergeable with route: " + (nodeB.getIndex()));
-                continue;
-            }
+                // Gets the routes which contain two nodes that eventually can be merged
+                Route routeA = mainRoutes.get(getIndexRoute(nodeA));
+                Route routeB = mainRoutes.get(getIndexRoute(nodeB));
 
-            // (iii) The capacity of the vehicle can't be overtaken
-            if(routeA.getDemand() + routeB.getDemand() > instance.getCapacity()){
-                // @Debug
-                //System.out.println("(ii) Route: " + (nodeA.getIndex()) + " is not mergeable with route: " + (nodeB.getIndex()));
-                continue;
-            }
+                // (i) A e B can't stay in the same route, otherwise they can't be merged
+                if(routeA == routeB)
+                    continue;
 
-            // @Debug
-            //System.out.println("Route: " + (nodeA.getIndex()) + " is mergeable with route:" + (nodeB.getIndex()));
+                if(route == routeA){
+                    // (ii) A e B must be the first or the last client of their route, otherwise they can't be merged
+                    if(route.checkIsFirstOrLast(nodeA) == false)
+                        continue;
 
-            // Merging of the routes removing the old main route
-            routeA.merge(routeB.getRoutes());
-            mainRoutes.remove(routeB);
+                    // (iii) The capacity of the vehicle can't be overtaken
+                    if(route.getDemand() + routeB.getDemand() > instance.getCapacity()){
+                        continue;
+                    }
 
-        }
+                    // Merging of the routes removing the old main route
+                    route.merge(routeB.getRoutes());
+                    mainRoutes.remove(routeB);
+                }
+
+                if(route == routeB){
+                    // (ii) A e B must be the first or the last client of their route, otherwise they can't be merged
+                    if(route.checkIsFirstOrLast(nodeB) == false)
+                        continue;
+
+                    // (iii) The capacity of the vehicle can't be overtaken
+                    if(route.getDemand() + routeA.getDemand() > instance.getCapacity()){
+                        continue;
+                    }
+
+                    // Merging of the routes removing the old main route
+                    route.merge(routeA.getRoutes());
+                    mainRoutes.remove(routeA);
+                }
+
+
+
+            } // for j
+        } // for i
     }
 
     /**
