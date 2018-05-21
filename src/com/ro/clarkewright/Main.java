@@ -28,11 +28,12 @@ public class Main {
 
         System.out.println("\n----------------------------------\n");
 
+        TimeHandler time2 = new TimeHandler();
         // Creates object ClarkeWrightParallel
         ClarkeWrightParallel cwp = new ClarkeWrightParallel(instance);
         // Executes the parallel version of the algorithm
         cwp.run();
-        time.print("ClarkWright Parallel");
+        time2.print("ClarkWright Parallel");
         // @Debug
         cwp.debug();
 
