@@ -4,15 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-/**
- * @author Andrea Corriga
- */
 public class FileManager {
 
     /**
-     * Read a file passing as parameter (with path)
-     * @param path
-     * @return
+     * Read a file passed as parameter (with path)
+     * @param path of the file to read
+     * @return the buffer reader object
      */
     public static BufferedReader read(String path) {
 

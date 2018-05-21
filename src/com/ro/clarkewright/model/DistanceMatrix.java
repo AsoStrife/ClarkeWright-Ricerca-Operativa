@@ -5,24 +5,26 @@ import java.util.ArrayList;
 
 public class DistanceMatrix {
 
-    // Nodes list contain all nodes. In the first position (0) there is the depot
+    // Nodes list with all nodes. In position (0) there is the depot
     private ArrayList<Node> nodes  = new ArrayList<>();
+    // Double matrix to contain the distances between all nodes
     private double matrix[][];
 
     /**
-     *
-     * @param nodes
+     * Builds the distance matrix taking the nodes list as parameter
+     * @param nodes a list which contains all the nodes
      */
-    public DistanceMatrix( ArrayList<Node> nodes){
+    public DistanceMatrix(ArrayList<Node> nodes){
         this.nodes.addAll(nodes);
 
         this.matrix = new double[nodes.size()+1][nodes.size()+1];
 
+        // Calculates the distances
         distanceHandler();
     }
 
     /**
-     * Set the matrix attribute with the value
+     * For each pair of nodes, it calculates the distance between them
      */
     private void distanceHandler(){
         for (int i = 0; i < nodes.size(); i++) {
@@ -33,10 +35,10 @@ public class DistanceMatrix {
     }
 
     /**
-     *
-     * @param first
-     * @param second
-     * @return the distance between two node
+     * Computes the euclidean distance between two nodes
+     * @param first the first node
+     * @param second the second node
+     * @return the distance between the nodes
      */
     public static double calculateDistance(Node first, Node second){
         double value =  Math.sqrt(Math.pow(first.getX()-second.getX(), 2) + Math.pow(first.getY()-second.getY(), 2));
@@ -44,17 +46,17 @@ public class DistanceMatrix {
     }
 
     /**
-     *
-     * @param first
-     * @param second
-     * @return get the distance using the index of the nodes
+     * Getter of a single value between two nodes
+     * @param first the first node
+     * @param second the second node
+     * @return the distance using the index of the nodes
      */
     public double getDistance(Node first, Node second){
         return matrix[first.getIndex()][second.getIndex()];
     }
 
     /**
-     * Debug function, print all values
+     * Debug function, print all values of the distance matrix
      */
     public void print(){
         for (int i = 0; i < matrix.length; i++) {

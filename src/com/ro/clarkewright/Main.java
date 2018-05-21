@@ -5,30 +5,35 @@ import com.ro.clarkewright.core.ClarkeWrightSequential;
 import com.ro.clarkewright.core.Instance;
 import com.ro.clarkewright.handler.TimeHandler;
 
+/**
+ * Main class of the project.
+ * It calculates first the sequential, then the parallel version of the Clarke & Wright algorithm
+ */
 public class Main {
 
     public static void main(String[] args){
 
         TimeHandler time = new TimeHandler();
 
-        // Read file passed as parameters
+        // Reads file passed as parameters
         Instance instance = new Instance("./data/A-VRP/A-n32-k5.vrp");
 
-        // Create object ClarkeWrightSequential, crea il depot, tutti i nodi e le main route
+        // Creates object ClarkeWrightSequential
         ClarkeWrightSequential cws = new ClarkeWrightSequential(instance);
-        // Lancio l'algoritmo, fa i 3 controlli e fa i merge dove necessario
+        // Executes the sequential version of the algorithm
         cws.run();
         time.print("ClarkWright Sequential");
-        // Utile per il debug, printa su console eventuali dati [non necessario al fine del progetto]
+        // @Debug
         cws.debug();
 
         System.out.println("\n----------------------------------\n");
 
+        // Creates object ClarkeWrightParallel
         ClarkeWrightParallel cwp = new ClarkeWrightParallel(instance);
-        // Lancio l'algoritmo, fa i 3 controlli e fa i merge dove necessario
+        // Executes the parallel version of the algorithm
         cwp.run();
         time.print("ClarkWright Parallel");
-        // Utile per il debug, printa su console eventuali dati [non necessario al fine del progetto]
+        // @Debug
         cwp.debug();
 
 

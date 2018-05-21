@@ -3,29 +3,28 @@ import com.ro.clarkewright.handler.DoubleHandler;
 
 import java.util.ArrayList;
 
-/**
- *
- */
 public class Route {
 
-    // This array list contain the route of this route
+    // This array list contains the routes of this Route object
     // For example 0 -> 1 -> 0 => ArrayList of three element
     private ArrayList<Node> routes = new ArrayList<>();
-    // Matrice delle distanze
+    // Distance matrix object
     private DistanceMatrix distanceMatrix;
+    // Total distance between nodes of the current route list
     private double distance = 0;
+    // Total demand of the nodes in the current route list
     private int demand = 0;
 
     /**
-     * Starting by two nodes, calculate the distances roundtrip
-     * @param depot
-     * @param destination
-     * @param distanceMatrix
+     * Creates the Route object and calculates the total distance and the total demand
+     * @param depot the first node of each route
+     * @param destination the node which represents the client
+     * @param distanceMatrix the distance matrix used to find the distances of the routes list
      */
     public Route(Node depot, Node destination, DistanceMatrix distanceMatrix){
         this.distanceMatrix = distanceMatrix;
 
-        // Creo la rotta base: deposito, destinazione, deposito
+        // Creates the main route: depot, destination, depot
         routes.add(depot);
         routes.add(destination);
         routes.add(depot);
@@ -35,8 +34,7 @@ public class Route {
     }
 
     /**
-     * Calcolo le distanze tra i nodi. size-1 perché l'ultimo elemento sarà sempre il depot e quindi non devo
-     * calcolare depot + 1 che va in overflow
+     * Computes the total distance of the route. We use size-1 to avoid overflow
      */
     private void calculateDistance(){
         int size = routes.size();
@@ -46,7 +44,7 @@ public class Route {
     }
 
     /**
-     *
+     * Computes the total demand of the route
      */
     private void calculateDemand(){
         int size = routes.size();
@@ -58,27 +56,30 @@ public class Route {
     }
 
     /**
-     *
-     * @param newRoutes
+     * Merges a route on which this method is called with the newRoute parameter
+     * @param newRoutes the route to merge with the route on which this method is called
      */
     public void merge(ArrayList<Node> newRoutes){
 
-        routes.remove(routes.size()-1); // Rimuovo il depot delle routes
-        newRoutes.remove(0); // Rimuovo il depot dall'inizio delle routes da mergiare
-        newRoutes.remove(newRoutes.size()-1); // Rimuovo il depot dalla fine delle routes da mergiare
-        // Aggiungo le rotte
+        // Remove the depot from the end of the route
+        routes.remove(routes.size()-1);
+        // Remove the depot from the start of the new route to merge
+        newRoutes.remove(0);
+        // Remove the depot from the end of the new route to merge
+        newRoutes.remove(newRoutes.size()-1);
+        // Merge the two routes
         routes.addAll(newRoutes);
-        // Riaggiungo il depot
+        // Add again the depot
         routes.add(routes.get(0));
-        // Ricalcolo le demand
+        // Compute the updated demand and distance
         calculateDemand();
         calculateDistance();
     }
 
     /**
-     *
-     * @param n
-     * @return
+     * Checks if a node is cointained into a route list
+     * @param n the node to check
+     * @return true if the route contains the node, false otherwise
      */
     public boolean checkContainNode(Node n){
 
@@ -90,9 +91,9 @@ public class Route {
     }
 
     /**
-     *
-     * @param n
-     * @return
+     * Checks if a node is the first or the last inside a route
+     * @param n the node to check
+     * @return true if the node is the first or the last, false otherwise
      */
     public boolean checkIsFirstOrLast(Node n){
         int size = routes.size();
@@ -109,9 +110,9 @@ public class Route {
     }
 
     /**
-     *
-     * @param n
-     * @return
+     * Checks is a node is the first of the route
+     * @param n the node to check
+     * @return true if the node is the first, false otherwise
      */
     public boolean checkIsFirst(Node n){
         if(routes.get(1).equals(n))
@@ -120,8 +121,13 @@ public class Route {
             return false;
     }
 
+    /**
+     * Checks is a node is the last of the route
+     * @param n the node to check
+     * @return true if the node is the last, false otherwise
+     */
     public boolean checkIsLast(Node n){
-        // Posizione -2 perché l'ultimo (-1) è il depot
+        // Position -2 because in position -1 there is the depot
         int position = routes.size()-2;
 
         if(routes.get(position).equals(n))
@@ -130,31 +136,31 @@ public class Route {
             return false;
     }
     /**
-     *
-     * @return
+     * Getter
+     * @return the distance
      */
     public double getDistance() {
         return distance;
     }
 
     /**
-     *
-     * @return
+     * Getter
+     * @return the demand
      */
     public int getDemand(){
         return demand;
     }
 
     /**
-     *
-     * @return
+     * Getter
+     * @return the route list
      */
     public ArrayList<Node> getRoutes(){
         return routes;
     }
 
     /**
-     *
+     * @Debug Prints all the route list with associated demand and distance
      */
     public void print(){
         System.out.print("Route: ");
