@@ -7,41 +7,42 @@ import com.ro.clarkewright.model.SavingsMatrix;
 import java.util.ArrayList;
 
 public class ClarkeWrightSequential {
-    // Contain the .vrp file instance
+    // Contains the .vrp file instance
     Instance instance;
 
     // All nodes with depot in position 0
     private ArrayList<Node> nodes = new ArrayList<>();
 
-    // This object contain the distance matrix
+    // Contains the distance matrix
     private DistanceMatrix distanceMatrix;
 
-    // This object contain the saving matrix
+    // Contains the saving matrix
     private SavingsMatrix savingsMatrix;
 
-    // Contain the main routes
+    // Contains the main routes
     private ArrayList<Route> mainRoutes = new ArrayList<>();
 
     /**
-     *
-     * @param instance
+     * Constructor of the object
+     * Generates the main routes
+     * @param instance the instance of the file
      */
     public ClarkeWrightSequential(Instance instance){
         this.instance = instance;
 
-        // Now nodes contain all nodes with depot in 0 position
+        // Now nodes contains all nodes with depot in 0 position
         this.nodes.add(instance.getDepot());
         this.nodes.addAll(instance.getNodes());
 
         this.distanceMatrix = new DistanceMatrix(nodes);
         this.savingsMatrix = new SavingsMatrix(nodes, distanceMatrix);
 
-        // generate the main routes
+        // generates the main routes
         mainRoutesHandler();
     }
 
     /**
-     * Generate the main routes 0 -> i -> 0
+     * Generates the main routes 0 -> i -> 0
      */
     public void mainRoutesHandler(){
         for(int i = 0; i < instance.nodeSize(); i++){
@@ -50,51 +51,55 @@ public class ClarkeWrightSequential {
     }
 
     /**
-     *
+     * Executes the algorithm
      */
     public void run(){
-        // Per ogni elemento della savingList ordinata
+        // For each element of the ordered savings list
         for(int i = 0; i < savingsMatrix.getOrderedSavingsList().size(); i++){
 
-            // I due oggetti nodi della coppia [es: (4,5)] ottenendo i valori dalla matrice dei risparmi
+            // These are the two object nodes of the pair [es: (4,5)] from which we take the savings value
             Node nodeA = nodes.get( savingsMatrix.getElementOrderedSavingList(i).get(0) );
             Node nodeB = nodes.get( savingsMatrix.getElementOrderedSavingList(i).get(1) );
 
-            // Ottengo le rotte che contengono i due nodi da mergiare (eventualmente)
+            // Gets the routes which contain two nodes that eventually can be merged
             Route routeA = mainRoutes.get(getIndexRoute(nodeA));
             Route routeB = mainRoutes.get(getIndexRoute(nodeB));
 
-            // (i) Se i nodi A e B sono contenuti nella stessa route non rispettano la condizione (i), ovvero stanno sulla stessa route e non vanno mergiati
+            // (i) A e B can't stay in the same route, otherwise they can't be merged
             if(routeA == routeB){
+                // @Debug
                 //System.out.println("(i) Route: " + (nodeA.getIndex()) + " is not mergeable with route: " + (nodeB.getIndex()));
                 continue;
             }
 
-            // (iii) I nodi A e B devono essere rispettivamente i primi o ultimi della loro route, altrimenti non posso mergiarli. Condizione (iii)
+            // (ii) A e B must be the first or the last client of their route, otherwise they can't be merged
             if(routeA.checkIsFirstOrLast(nodeA) == false || routeB.checkIsFirstOrLast(nodeB) == false){
+                // @Debug
                 //System.out.println("(iii) Route: " + (nodeA.getIndex()) + " is not mergeable with route: " + (nodeB.getIndex()));
                 continue;
             }
 
-            // (ii) Condizione (ii) per poter mergiare le route non devo superare la capacità del veicolo
+            // (iii) The capacity of the vehicle can't be overtaken
             if(routeA.getDemand() + routeB.getDemand() > instance.getCapacity()){
+                // @Debug
                 //System.out.println("(ii) Route: " + (nodeA.getIndex()) + " is not mergeable with route: " + (nodeB.getIndex()));
                 continue;
             }
 
+            // @Debug
             //System.out.println("Route: " + (nodeA.getIndex()) + " is mergeable with route:" + (nodeB.getIndex()));
 
+            // Merging of the routes removing the old main route
             routeA.merge(routeB.getRoutes());
-            //routeA.print();
             mainRoutes.remove(routeB);
 
         }
     }
 
     /**
-     *
-     * @param n
-     * @return
+     * Getter
+     * @param n the node of the route
+     * @return the index of the mainRoutes which contains the node
      */
     private int getIndexRoute(Node n){
         for(int i = 0; i < mainRoutes.size(); i++) {
@@ -105,7 +110,7 @@ public class ClarkeWrightSequential {
     }
 
     /**
-     * DEBUG METHOD
+     * @Debug
      */
     public void debug(){
         /**
