@@ -8,10 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-/**
- * @author Andrea Corriga
- */
 public class Instance {
+
     private BufferedReader file;
 
     private String name;
@@ -28,35 +26,34 @@ public class Instance {
     //private String eof;
 
     /**
-     *
-     * @param filePath
-     * @throws IOException
+     * Constructor of the Instance
+     * @param filePath the path of the file to read
      */
     public Instance(String filePath){
-        // Read the file
+        // Reads the file
         readFile(filePath);
-        // Concatenate the BufferReader line into only one string with \n as end line
+        // Concatenates the BufferReader line into only one string with \n as end line
         String string = file.lines().collect(Collectors.joining("\n"));
-        // Set the main attribute as name, comment, type, dimension etc
+        // Sets the main attribute as name, comment, type, dimension etc
         this.setInstanceMainAttributes(string);
-        // Set the list of Nodes
+        // Sets the list of Nodes
         this.setNodes(string);
-        // Set the list of demands
+        // Sets the list of demands
         this.setDemands(string);
     }
 
     /**
-     * Set the attribute BufferReader file
-     * @param filePath
+     * Sets the attribute BufferReader file
+     * @param filePath the path of the file to read
       */
     private void readFile(String filePath){
         this.file = FileManager.read(filePath);
     }
 
     /**
-     * Setto gli attributi della classe che nel formato VRP corrispondono alle prime righe
-     * formattate ATTRIBUTO : VALORE
-     * @param string
+     * Sets the attributes of the class which represents data in VRP format as the following
+     * ATTRIBUTO : VALORE
+     * @param string the string taken from the VRP
      */
     private void setInstanceMainAttributes(String string){
         String regex = "([A-Z]*) : (.*)";
@@ -88,9 +85,9 @@ public class Instance {
     }
 
     /**
-     * Creo per ogni nodo presente nel file VRP un elemento nella lista nodes
-     * aggiungendo index, x e y (passati come stringa e castati nel costruttore della classe)
-     * @param string
+     * For each line of the VRP file, creates a Node element
+     * with index, x-coordinate and y-coordinate (passed as strings and casted in the constructor)
+     * @param string the string taken from the VRP
      */
     private void setNodes(String string){
         String regex = "^ ([0-9]*\\S) ([0-9]*\\S) ([0-9]*\\S)";
@@ -103,9 +100,8 @@ public class Instance {
     }
 
     /**
-     * Setto sia il campo demand della lista nodes sia aggiungo il valore
-     * nella lista demands
-     * @param string
+     * For each line of the VRP vile, sets the demands for each node
+     * @param string the string taken from the VRP
      */
     private void setDemands(String string){
         String regex = "^([0-9]*\\S) ([0-9]*\\S)";
@@ -121,9 +117,7 @@ public class Instance {
     }
 
     /**
-     *
-     * Getter e setter generici degli attributi della classe
-     *
+     * Getter e setter for each class attributes
      */
 
     public String getName() {
@@ -175,24 +169,24 @@ public class Instance {
     }
 
     /**
-     *
-     * @return tutti i nodi come ArrayList
+     * Getter
+     * @return all the nodes as ArrayList
      */
     public ArrayList<Node> getNodes(){
         return this.nodes;
     }
 
     /**
-     *
-     * @param i
-     * @return un nodo della lista
+     * Getter
+     * @param i an index
+     * @return the node at position i in the list
      */
     public Node getNode(int i){
         return this.nodes.get(i);
     }
 
     /**
-     *
+     * Getter
      * @return depot Node
      */
     public Node getDepot() {
@@ -200,7 +194,7 @@ public class Instance {
     }
 
     /**
-     *
+     * Getter
      * @return the size of the node list
      */
     public int nodeSize(){

@@ -7,31 +7,38 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class SavingsMatrix {
-    // Nodes list contain all nodes. In the first position (0) there is the depot
+
+    // Nodes list with all nodes. In position (0) there is the depot
     private ArrayList<Node> nodes = new ArrayList<>();
-    // Contain the distances Matrix
+    // Distance matrix object
     private DistanceMatrix distances;
-    // Matrix of savings
+    // Double matrix to contain the savings between all nodes
     private double matrix[][];
-    // Questa lista contiene gli indici della matrice in ordine decrescente
+    // Contains the position of the savings in the matrix in decreasing fashion
     private List<List<Integer>> orderedSavingsList;
 
+    /**
+     * Constructor of the savings matrix
+     * @param nodes the list of all the nodes
+     * @param distances the distance matrix
+     */
     public SavingsMatrix(ArrayList<Node> nodes, DistanceMatrix distances){
 
+        // Initialization
         this.nodes.addAll(nodes);
-        // distance matrix
         this.distances = distances;
-
+        // Creation of the matrix
         this.matrix = new double[nodes.size()+1][nodes.size()+1];
 
-        // Generate the saving matrix
+        // Generates the saving matrix
         savingsHandler();
-        // Generate the list that contain the element of savings matrix in decrease order
+        // Generates the list that contain the element of savings matrix in decreasing fashion
         orderedSavingsListHandler();
     }
 
     /**
-     * This method calculate the savings matrix
+     * Calculates the savings matrix using the following formula:
+     * s(i,j) = c(0,i) + c(0,j) - c(i,j)
      */
     private void savingsHandler() {
         for (int i = 0; i < nodes.size(); i++) {
@@ -42,7 +49,7 @@ public class SavingsMatrix {
                     double distDepotI = distances.getDistance(nodes.get(0), nodes.get(i));
                     double distDepotJ = distances.getDistance(nodes.get(0), nodes.get(j));
                     double distIJ = distances.getDistance(nodes.get(i), nodes.get(j));
-                    // Round the result with two value after coma
+                    // Rounds the result with two digits after comma
                     double saving = DoubleHandler.round((distDepotI + distDepotJ - distIJ), 2);
 
                     matrix[nodes.get(i).getIndex()][nodes.get(j).getIndex()] = saving;
@@ -52,13 +59,12 @@ public class SavingsMatrix {
     }
 
     /**
-     * Genera il vettore contenente per ogni posizione gli indici della matrice
+     * Sorts ther savings list using a lambda expression
      */
     public void orderedSavingsListHandler(){
         int rows = nodes.size();
         int cols = nodes.size();
 
-        // Ordino i risultati con una lambda
         orderedSavingsList = IntStream.range(1, rows).mapToObj(i ->
                 IntStream.range(0, cols).mapToObj(j ->
                         new double[]{i, j, matrix[i][j]}
@@ -69,24 +75,31 @@ public class SavingsMatrix {
         .map(a -> Arrays.asList((int) a[0], (int) a[1]))
         .collect(Collectors.toList());
 
+        // @Debug
         //orderedSavingsList.forEach(System.out::println);
     }
 
 
     /**
-     *
-     * @return
+     * Getter
+     * @return the ordered savings list
      */
     public List<List<Integer>> getOrderedSavingsList(){
         return orderedSavingsList;
     }
 
+    /**
+     * Getter
+     * @param i index of the element
+     * @return the element at index i of the list
+     */
     public List<Integer> getElementOrderedSavingList(int i){
         return orderedSavingsList.get(i);
     }
 
     /**
-     * Print the matrix
+     * @Debug
+     * Prints the savings matrix
      */
     public void print(){
         for (int i = 0; i < matrix.length; i++) {
@@ -98,7 +111,8 @@ public class SavingsMatrix {
     }
 
     /**
-     * Print the orderedSavingsList
+     * @Debug
+     * Prints the orderedSavingsList
      */
     public void printOrderedSavingsList(){
         for(int i = 0; i < orderedSavingsList.size(); i++){
