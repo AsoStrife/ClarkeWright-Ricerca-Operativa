@@ -1,5 +1,5 @@
 package com.ro.clarkewright.core;
-
+import com.ro.clarkewright.handler.DoubleHandler;
 import com.ro.clarkewright.model.DistanceMatrix;
 import com.ro.clarkewright.model.Node;
 import com.ro.clarkewright.model.Route;
@@ -22,6 +22,10 @@ public class ClarkeWrightSequential {
     // Contain the main routes
     private ArrayList<Route> mainRoutes = new ArrayList<>();
 
+    /**
+     *
+     * @param instance
+     */
     public ClarkeWrightSequential(Instance instance){
         this.instance = instance;
 
@@ -45,7 +49,9 @@ public class ClarkeWrightSequential {
         }
     }
 
-
+    /**
+     *
+     */
     public void run(){
         // Per ogni elemento della savingList ordinata
         for(int i = 0; i < savingsMatrix.getOrderedSavingsList().size(); i++){
@@ -85,6 +91,11 @@ public class ClarkeWrightSequential {
         }
     }
 
+    /**
+     *
+     * @param n
+     * @return
+     */
     private int getIndexRoute(Node n){
         for(int i = 0; i < mainRoutes.size(); i++) {
             if(mainRoutes.get(i).checkContainNode(n) == true)
@@ -103,12 +114,20 @@ public class ClarkeWrightSequential {
 
         System.out.println("-- SAVINGS MATRIX --");
         savingsMatrix.print();
-        **/
 
-        //System.out.println("-- ORDERED SAVING LIST --");
-        //savingsMatrix.printOrderedSavingsList();
+
+        System.out.println("-- ORDERED SAVING LIST --");
+        savingsMatrix.printOrderedSavingsList();
         System.out.println("Size: " + mainRoutes.size());
+        */
+
         for(int i = 0; i < mainRoutes.size(); i++)
             mainRoutes.get(i).print();
+
+        double totalDistance = 0;
+        for(int i = 0; i < mainRoutes.size(); i++)
+            totalDistance = totalDistance + mainRoutes.get(i).getDistance();
+
+        System.out.println("Total Distance: "  + DoubleHandler.round(totalDistance,2) );
     }
 }

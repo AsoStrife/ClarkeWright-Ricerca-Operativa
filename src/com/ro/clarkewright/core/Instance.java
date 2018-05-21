@@ -1,8 +1,6 @@
 package com.ro.clarkewright.core;
-
 import com.ro.clarkewright.model.Node;
 import com.ro.clarkewright.manager.FileManager;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.BufferedReader;

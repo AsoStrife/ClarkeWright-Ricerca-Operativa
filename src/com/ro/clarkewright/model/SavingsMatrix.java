@@ -1,7 +1,5 @@
 package com.ro.clarkewright.model;
-
 import com.ro.clarkewright.handler.DoubleHandler;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -74,21 +72,6 @@ public class SavingsMatrix {
         //orderedSavingsList.forEach(System.out::println);
     }
 
-    /**
-     *
-     * @return
-     */
-    public double[][] getMatrix(){
-        return matrix;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public double getElementMatrix(int i, int j){
-       return matrix[i][j];
-    }
 
     /**
      *

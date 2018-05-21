@@ -1,4 +1,5 @@
 package com.ro.clarkewright.model;
+import com.ro.clarkewright.handler.DoubleHandler;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ public class Route {
     // This array list contain the route of this route
     // For example 0 -> 1 -> 0 => ArrayList of three element
     private ArrayList<Node> routes = new ArrayList<>();
-
+    // Matrice delle distanze
     private DistanceMatrix distanceMatrix;
     private double distance = 0;
     private int demand = 0;
@@ -37,20 +38,41 @@ public class Route {
      * Calcolo le distanze tra i nodi. size-1 perché l'ultimo elemento sarà sempre il depot e quindi non devo
      * calcolare depot + 1 che va in overflow
      */
-    public void calculateDistance(){
+    private void calculateDistance(){
         int size = routes.size();
         for(int i = 0; i < size-1; i++){
             distance = distance + distanceMatrix.getDistance(routes.get(i), routes.get(i+1));
         }
     }
 
-    public void calculateDemand(){
+    /**
+     *
+     */
+    private void calculateDemand(){
         int size = routes.size();
         demand = 0;
         for(int i = 0; i < size; i++){
             demand = demand + routes.get(i).getDemand();
         }
 
+    }
+
+    /**
+     *
+     * @param newRoutes
+     */
+    public void merge(ArrayList<Node> newRoutes){
+
+        routes.remove(routes.size()-1); // Rimuovo il depot delle routes
+        newRoutes.remove(0); // Rimuovo il depot dall'inizio delle routes da mergiare
+        newRoutes.remove(newRoutes.size()-1); // Rimuovo il depot dalla fine delle routes da mergiare
+        // Aggiungo le rotte
+        routes.addAll(newRoutes);
+        // Riaggiungo il depot
+        routes.add(routes.get(0));
+        // Ricalcolo le demand
+        calculateDemand();
+        calculateDistance();
     }
 
     /**
@@ -65,19 +87,6 @@ public class Route {
         else
             return false;
 
-    }
-
-    public void merge(ArrayList<Node> newRoutes){
-
-        routes.remove(routes.size()-1); // Rimuovo il depot delle routes
-        newRoutes.remove(0); // Rimuovo il depot dall'inizio delle routes da mergiare
-        newRoutes.remove(newRoutes.size()-1); // Rimuovo il depot dalla fine delle routes da mergiare
-        // Aggiungo le rotte
-        routes.addAll(newRoutes);
-        // Riaggiungo il depot
-        routes.add(routes.get(0));
-        // Ricalcolo le demand
-        calculateDemand();
     }
 
     /**
@@ -99,8 +108,27 @@ public class Route {
         return false;
     }
 
+    /**
+     *
+     * @param n
+     * @return
+     */
+    public boolean checkIsFirst(Node n){
+        if(routes.get(1).equals(n))
+            return  true;
+        else
+            return false;
+    }
 
+    public boolean checkIsLast(Node n){
+        // Posizione -2 perché l'ultimo (-1) è il depot
+        int position = routes.size()-2;
 
+        if(routes.get(position).equals(n))
+            return  true;
+        else
+            return false;
+    }
     /**
      *
      * @return
@@ -109,21 +137,32 @@ public class Route {
         return distance;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDemand(){
         return demand;
     }
 
-
+    /**
+     *
+     * @return
+     */
     public ArrayList<Node> getRoutes(){
         return routes;
     }
 
+    /**
+     *
+     */
     public void print(){
         System.out.print("Route: ");
         for(int i = 0; i < routes.size(); i++){
             System.out.print(routes.get(i).getIndex() + " ");
         }
-        System.out.print("| Demand: " + demand);
+        System.out.print("| Demand: " + DoubleHandler.round(demand, 2));
+        System.out.print("| Distance: " + DoubleHandler.round(distance, 2));
         System.out.println(" ");
 
     }

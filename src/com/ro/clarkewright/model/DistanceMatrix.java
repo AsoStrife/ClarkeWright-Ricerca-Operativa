@@ -11,7 +11,6 @@ public class DistanceMatrix {
 
     /**
      *
-     * @param depot
      * @param nodes
      */
     public DistanceMatrix( ArrayList<Node> nodes){
