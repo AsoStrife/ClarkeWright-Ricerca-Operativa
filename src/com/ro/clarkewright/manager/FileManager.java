@@ -18,6 +18,28 @@ public class FileManager {
     private static String outputFolder = folder + "output/";
 
     /**
+     * Create a list with all .vrp files
+     * @return the list of .vrp files
+     */
+    public static ArrayList<String> getAllInput(){
+        ArrayList<String> filenames = new ArrayList<>();
+
+
+        File[] files = new File(inputFolder).listFiles();
+
+        for (File file : files) {
+            if (file.isFile()) {
+
+                // Remove the extension of the filename
+                String fileName = file.getName().substring(0, file.getName().lastIndexOf("."));
+                // Add filename in the list
+                filenames.add(fileName);
+            }
+        }
+        return filenames;
+    }
+
+    /**
      * Read a file passed as parameter (with path)
      * @param filename of the file to read
      * @return the buffer reader object

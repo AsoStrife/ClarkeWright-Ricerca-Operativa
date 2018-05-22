@@ -174,6 +174,6 @@ public class ClarkeWrightParallel {
         for(int i = 0; i < mainRoutes.size(); i++)
             totalDistance = totalDistance + mainRoutes.get(i).getDistance();
 
-        System.out.println("Total Distance: "  + DoubleHandler.round(totalDistance,2) );
+        System.out.println("Total Cost: "  + DoubleHandler.round(totalDistance,2) );
     }
 }

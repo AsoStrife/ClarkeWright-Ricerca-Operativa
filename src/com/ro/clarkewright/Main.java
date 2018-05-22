@@ -7,6 +7,7 @@ import com.ro.clarkewright.handler.TimeHandler;
 import com.ro.clarkewright.manager.FileManager;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 /**
  * Main class of the project.
@@ -16,33 +17,52 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        String filename = "A-n38-k5";
+        // Create the list of the files in ./data/A-VRP/
+        ArrayList<String> filenames = FileManager.getAllInput();
 
-        TimeHandler time1 = new TimeHandler();
+        /**
+         * If you want to test the algorithm for each file
+         * you have to remove the for cycle and set
+         * String filename = filenames.get( index )
+         * with index starting from 0 to filenames.size() - 1 (it should be 26)
+         */
+        for(int i = 0; i < filenames.size(); i++) {
+            String filename = filenames.get(i); // "A-n80-k10";
 
-        // Reads file passed as parameters
-        Instance instance = new Instance(filename);
+            System.out.println("Filename: " + filenames.get(i));
 
-        // Creates object ClarkeWrightSequential
-        ClarkeWrightSequential cws = new ClarkeWrightSequential(instance);
-        // Executes the sequential version of the algorithm
-        cws.run();
-        time1.print("ClarkWright Sequential");
-        // @Debug
-        cws.debug();
+            /**
+             * ClarkeWright Sequential
+             */
+            TimeHandler time1 = new TimeHandler();
+            // Reads file passed as parameters
+            Instance instance = new Instance(filename);
 
-        System.out.println("\n----------------------------------\n");
+            // Creates object ClarkeWrightSequential
+            ClarkeWrightSequential cws = new ClarkeWrightSequential(instance);
+            // Executes the sequential version of the algorithm
+            cws.run();
+            time1.print("ClarkWright Sequential");
+            // @Debug
+            cws.debug();
 
-        TimeHandler time2 = new TimeHandler();
-        // Creates object ClarkeWrightParallel
-        ClarkeWrightParallel cwp = new ClarkeWrightParallel(instance);
-        // Executes the parallel version of the algorithm
-        cwp.run();
-        time2.print("ClarkWright Parallel");
-        // @Debug
-        cwp.debug();
+            /**
+             * ClarkeWright Parallel
+             */
+            TimeHandler time2 = new TimeHandler();
+            // Creates object ClarkeWrightParallel
+            ClarkeWrightParallel cwp = new ClarkeWrightParallel(instance);
+            // Executes the parallel version of the algorithm
+            cwp.run();
+            time2.print("ClarkWright Parallel");
+            // @Debug
+            cwp.debug();
 
-        FileManager.write(filename, cws, cwp, time1.getSeconds(), time2.getSeconds());
+            // Write the full .txt file
+            FileManager.write(filename, cws, cwp, time1.getSeconds(), time2.getSeconds());
+            System.out.println("\n----------------------------------\n");
+
+        }
 
     }
 

@@ -1,0 +1,30 @@
+ClarkeWright Sequential: 
+ 
+Routes: 
+Route: 0 1 7 21 32 34 36 5 30 0 | Demand: 100.0| Cost: 1988.6
+Route: 0 2 52 28 39 19 44 9 0 | Demand: 100.0| Cost: 1542.2
+Route: 0 3 37 50 51 38 11 27 45 41 31 26 0 | Demand: 100.0| Cost: 3222.5
+Route: 0 4 40 6 47 42 48 29 23 8 20 0 | Demand: 100.0| Cost: 2292.0
+Route: 0 10 46 13 18 43 24 33 0 | Demand: 98.0| Cost: 1366.8
+Route: 0 12 25 49 17 16 35 53 0 | Demand: 99.0| Cost: 1089.4
+Route: 0 14 22 15 0 | Demand: 67.0| Cost: 132.3
+
+Total cost: 11633.8
+Execution time: 0.008
+
+-----------------------------------------
+
+ClarkeWright Parallel: 
+ 
+Routes: 
+Route: 0 2 9 28 36 47 52 0 | Demand: 99.0| Cost: 356.4
+Route: 0 4 6 12 25 18 35 0 | Demand: 100.0| Cost: 501.1
+Route: 0 15 22 14 53 0 | Demand: 80.0| Cost: 164.2
+Route: 0 23 3 38 43 16 20 24 44 33 0 | Demand: 99.0| Cost: 439.2
+Route: 0 26 10 5 29 1 7 21 32 34 40 0 | Demand: 94.0| Cost: 374.1
+Route: 0 31 37 19 11 27 41 30 50 39 51 45 0 | Demand: 99.0| Cost: 633.9
+Route: 0 42 8 13 46 17 49 48 0 | Demand: 93.0| Cost: 291.5
+
+Total cost: 2760.4
+Execution time: 0.003
+
