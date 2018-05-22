@@ -28,7 +28,7 @@ public class SavingsMatrix {
         this.nodes.addAll(nodes);
         this.distances = distances;
         // Creation of the matrix
-        this.matrix = new double[nodes.size()+1][nodes.size()+1];
+        this.matrix = new double[nodes.size()][nodes.size()];
 
         // Generates the saving matrix
         savingsHandler();
@@ -110,7 +110,7 @@ public class SavingsMatrix {
      * Prints the savings matrix
      */
     public void print(){
-        for (int i = 0; i < matrix.length; i++) {
+        for (int i = 1; i < matrix.length-1; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
                 System.out.print(matrix[i][j] + " ");
             }

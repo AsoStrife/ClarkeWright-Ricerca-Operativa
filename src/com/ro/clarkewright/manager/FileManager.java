@@ -45,6 +45,8 @@ public class FileManager {
         PrintWriter writer = new PrintWriter(filepath);
 
         writeSequential(writer, cws);
+        writer.println("-----------------------------------------");
+        writer.println("");
         writeParallel(writer, cwp);
 
         writer.close();

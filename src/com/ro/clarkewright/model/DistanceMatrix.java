@@ -17,7 +17,7 @@ public class DistanceMatrix {
     public DistanceMatrix(ArrayList<Node> nodes){
         this.nodes.addAll(nodes);
 
-        this.matrix = new double[nodes.size()+1][nodes.size()+1];
+        this.matrix = new double[nodes.size()][nodes.size()];
 
         // Calculates the distances
         distanceHandler();

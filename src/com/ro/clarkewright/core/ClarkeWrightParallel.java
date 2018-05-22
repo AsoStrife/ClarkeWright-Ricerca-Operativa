@@ -153,14 +153,14 @@ public class ClarkeWrightParallel {
      * @Debug
      */
     public void debug(){
-
+        /**
          System.out.println("-- DISTANCE MATRIX --");
          distanceMatrix.print();
 
          System.out.println("-- SAVINGS MATRIX --");
          savingsMatrix.print();
 
-        /*
+
          System.out.println("-- ORDERED SAVING LIST --");
          savingsMatrix.printOrderedSavingsList();
          System.out.println("Size: " + mainRoutes.size());

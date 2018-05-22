@@ -9,6 +9,8 @@ Route: 0 12 0
 
 Total cost: 7482.3
 
+-----------------------------------------
+
 ClarkeWright Parallel: 
  
 Routes: 
