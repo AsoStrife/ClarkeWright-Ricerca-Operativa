@@ -56,6 +56,14 @@ public class DistanceMatrix {
     }
 
     /**
+     * Getter of the distance matrix
+     * @return the distance matrix
+     */
+    public double[][] getMatrix(){
+        return  matrix;
+    }
+
+    /**
      * Debug function, print all values of the distance matrix
      */
     public void print(){

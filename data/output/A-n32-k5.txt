@@ -1,0 +1,22 @@
+ClarkeWright Sequential: 
+ 
+Routes: 
+Route: 0 1 31 13 27 17 2 21 6 15 30 4 0 
+Route: 0 3 22 32 20 18 7 19 0 
+Route: 0 5 29 8 25 14 24 0 
+Route: 0 9 28 26 11 23 16 10 0 
+Route: 0 12 0 
+
+Total cost: 7482.3
+
+ClarkeWright Parallel: 
+ 
+Routes: 
+Route: 0 4 7 14 18 20 22 32 0 
+Route: 0 5 0 
+Route: 0 12 10 16 3 24 29 0 
+Route: 0 19 27 2 13 17 1 31 8 21 0 
+Route: 0 23 11 6 26 30 15 25 28 9 0 
+
+Total cost: 1737.2
+

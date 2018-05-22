@@ -98,6 +98,14 @@ public class SavingsMatrix {
     }
 
     /**
+     * Getter
+     * @return the saving matrix
+     */
+    public double[][] getMatrix(){
+        return matrix;
+    }
+
+    /**
      * @Debug
      * Prints the savings matrix
      */

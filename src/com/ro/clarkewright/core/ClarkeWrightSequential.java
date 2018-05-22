@@ -125,17 +125,53 @@ public class ClarkeWrightSequential {
     }
 
     /**
+     * Getter
+     * @return the array list of the main routes
+     */
+    public ArrayList<Route> getMainRoutes(){
+        return mainRoutes;
+    }
+
+    /**
+     * Getter
+     * @return the total distance of one route
+     */
+    public double getTotalDistance(){
+        double totalDistance = 0;
+        for(int i = 0; i < mainRoutes.size(); i++)
+            totalDistance = totalDistance + mainRoutes.get(i).getDistance();
+
+        return totalDistance;
+    }
+
+    /**
+     * Getter
+     * @return the distance matrix object
+     */
+    public DistanceMatrix getDistanceMatrix(){
+        return  distanceMatrix;
+    }
+
+    /**
+     * Getter
+     * @return the saving matrix object
+     */
+    public SavingsMatrix getSavingsMatrix(){
+        return savingsMatrix;
+    }
+
+    /**
      * @Debug
      */
     public void debug(){
-        /**
+
         System.out.println("-- DISTANCE MATRIX --");
         distanceMatrix.print();
 
         System.out.println("-- SAVINGS MATRIX --");
         savingsMatrix.print();
 
-
+        /**
         System.out.println("-- ORDERED SAVING LIST --");
         savingsMatrix.printOrderedSavingsList();
         System.out.println("Size: " + mainRoutes.size());
