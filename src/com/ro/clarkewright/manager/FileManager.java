@@ -14,14 +14,17 @@ import java.util.ArrayList;
 public class FileManager {
 
     private static String folder = "./data/";
+    private static String inputFolder = folder + "A-VRP/";
     private static String outputFolder = folder + "output/";
 
     /**
      * Read a file passed as parameter (with path)
-     * @param path of the file to read
+     * @param filename of the file to read
      * @return the buffer reader object
      */
-    public static BufferedReader read(String path) {
+    public static BufferedReader read(String filename) {
+
+        String path = inputFolder + filename + ".vrp";
 
         FileReader fr;
         BufferedReader br = null;
@@ -39,15 +42,15 @@ public class FileManager {
     /**
      *
      */
-    public static void write(String name, ClarkeWrightSequential cws, ClarkeWrightParallel cwp) throws FileNotFoundException {
+    public static void write(String name, ClarkeWrightSequential cws, ClarkeWrightParallel cwp, double time1, double time2) throws FileNotFoundException {
         String filepath = outputFolder + name + ".txt";
 
         PrintWriter writer = new PrintWriter(filepath);
 
-        writeSequential(writer, cws);
+        writeSequential(writer, cws, time1);
         writer.println("-----------------------------------------");
         writer.println("");
-        writeParallel(writer, cwp);
+        writeParallel(writer, cwp, time2);
 
         writer.close();
 
@@ -58,7 +61,7 @@ public class FileManager {
      * @param writer
      * @param cws
      */
-    public static void writeSequential(PrintWriter writer, ClarkeWrightSequential cws){
+    public static void writeSequential(PrintWriter writer, ClarkeWrightSequential cws, double time){
         ArrayList<Route> routes = cws.getMainRoutes();
         double totalDistance = cws.getTotalDistance();
         DistanceMatrix dm = cws.getDistanceMatrix();
@@ -72,6 +75,7 @@ public class FileManager {
         printRoutes(writer, routes);
 
         writer.println("Total cost: " + DoubleHandler.round(totalDistance,2));
+        writer.println("Execution time: " + DoubleHandler.round(time,4));
         writer.println("");
     }
 
@@ -80,7 +84,7 @@ public class FileManager {
      * @param writer
      * @param cwp
      */
-    public static void writeParallel(PrintWriter writer, ClarkeWrightParallel cwp){
+    public static void writeParallel(PrintWriter writer, ClarkeWrightParallel cwp, double time){
         ArrayList<Route> routes = cwp.getMainRoutes();
         double totalDistance = cwp.getTotalDistance();
         DistanceMatrix dm = cwp.getDistanceMatrix();
@@ -94,6 +98,7 @@ public class FileManager {
         printRoutes(writer, routes);
 
         writer.println("Total cost: " + DoubleHandler.round(totalDistance,2));
+        writer.println("Execution time: " + DoubleHandler.round(time,4));
         writer.println("");
     }
 
@@ -146,6 +151,8 @@ public class FileManager {
             for(int j = 0; j < n.size(); j++){
                 writer.print(n.get(j).getIndex() + " ");
             }
+            writer.print("| Demand: " + DoubleHandler.round(r.getDemand(), 2));
+            writer.print("| Cost: " + DoubleHandler.round(r.getDistance(), 2));
             writer.println("");
         }
         writer.println("");

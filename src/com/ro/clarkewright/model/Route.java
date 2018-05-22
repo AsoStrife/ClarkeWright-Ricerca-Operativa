@@ -168,7 +168,7 @@ public class Route {
             System.out.print(routes.get(i).getIndex() + " ");
         }
         System.out.print("| Demand: " + DoubleHandler.round(demand, 2));
-        System.out.print("| Distance: " + DoubleHandler.round(distance, 2));
+        System.out.print("| Cost: " + DoubleHandler.round(distance, 2));
         System.out.println(" ");
 
     }

@@ -27,11 +27,11 @@ public class Instance {
 
     /**
      * Constructor of the Instance
-     * @param filePath the path of the file to read
+     * @param filename the path of the file to read
      */
-    public Instance(String filePath){
+    public Instance(String filename){
         // Reads the file
-        readFile(filePath);
+        readFile(filename);
         // Concatenates the BufferReader line into only one string with \n as end line
         String string = file.lines().collect(Collectors.joining("\n"));
         // Sets the main attribute as name, comment, type, dimension etc
@@ -44,10 +44,10 @@ public class Instance {
 
     /**
      * Sets the attribute BufferReader file
-     * @param filePath the path of the file to read
+     * @param filename the path of the file to read
       */
-    private void readFile(String filePath){
-        this.file = FileManager.read(filePath);
+    private void readFile(String filename){
+        this.file = FileManager.read(filename);
     }
 
     /**

@@ -16,16 +16,18 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        TimeHandler time = new TimeHandler();
+        String filename = "A-n38-k5";
+
+        TimeHandler time1 = new TimeHandler();
 
         // Reads file passed as parameters
-        Instance instance = new Instance("./data/A-VRP/A-n32-k5.vrp");
+        Instance instance = new Instance(filename);
 
         // Creates object ClarkeWrightSequential
         ClarkeWrightSequential cws = new ClarkeWrightSequential(instance);
         // Executes the sequential version of the algorithm
         cws.run();
-        time.print("ClarkWright Sequential");
+        time1.print("ClarkWright Sequential");
         // @Debug
         cws.debug();
 
@@ -40,7 +42,7 @@ public class Main {
         // @Debug
         cwp.debug();
 
-        FileManager.write("A-n32-k5", cws, cwp);
+        FileManager.write(filename, cws, cwp, time1.getSeconds(), time2.getSeconds());
 
     }
 

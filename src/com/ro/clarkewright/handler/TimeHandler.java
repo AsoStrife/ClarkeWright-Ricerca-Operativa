@@ -29,4 +29,8 @@ public class TimeHandler {
         calculate();
         System.out.printf(s + " time:  %.3f seconds %n", milliseconds / 1000);
     }
+
+    public double getSeconds(){
+        return (milliseconds / 1000);
+    }
 }
