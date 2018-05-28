@@ -57,11 +57,7 @@ Route: 0 21 25 38 41 0 | Demand: 90.0| Cost: 683.1
 Route: 0 31 0 | Demand: 11.0| Cost: 20.4
 
 Total cost: 11185.2
-<<<<<<< HEAD
-Execution time: 0.014
-=======
 Execution time: 0.013
->>>>>>> 642f4c0247b69c42f8987fec3c7fae7d83e620b9
 
 -----------------------------------------
 
@@ -124,9 +120,5 @@ Route: 0 20 7 25 38 35 41 0 | Demand: 96.0| Cost: 266.6
 Route: 0 31 0 | Demand: 11.0| Cost: 20.4
 
 Total cost: 3203.6
-<<<<<<< HEAD
 Execution time: 0.003
-=======
-Execution time: 0.018
->>>>>>> 642f4c0247b69c42f8987fec3c7fae7d83e620b9
 
