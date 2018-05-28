@@ -131,8 +131,8 @@ public class FileManager {
      */
     private static void printDistanceMatrix(PrintWriter writer, DistanceMatrix dm){
         writer.println("Distance Matrix: ");
-        for (int i = 0; i < dm.getMatrix().length-1; i++) {
-            for (int j = 0; j < dm.getMatrix()[i].length-1; j++) {
+        for (int i = 0; i < dm.getMatrix().length; i++) {
+            for (int j = 0; j < dm.getMatrix()[i].length; j++) {
                 writer.print(dm.getMatrix()[i][j] + " ");
             }
             writer.println("");
@@ -148,8 +148,8 @@ public class FileManager {
      */
     private static void printSavingMatrix(PrintWriter writer, SavingsMatrix sm){
         writer.println("Savings Matrix: ");
-        for (int i = 1; i < sm.getMatrix().length-2; i++) {
-            for (int j = 1; j < sm.getMatrix()[i].length-1; j++) {
+        for (int i = 1; i < sm.getMatrix().length-1; i++) {
+            for (int j = 1; j < sm.getMatrix()[i].length; j++) {
                 writer.print(sm.getMatrix()[i][j] + " ");
             }
             writer.println("");

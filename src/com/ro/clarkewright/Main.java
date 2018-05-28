@@ -56,7 +56,7 @@ public class Main {
             cwp.run();
             time2.print("ClarkWright Parallel");
             // @Debug
-            cwp.debug();
+            //cwp.debug();
 
             // Write the full .txt file
             FileManager.write(filename, cws, cwp, time1.getSeconds(), time2.getSeconds());
