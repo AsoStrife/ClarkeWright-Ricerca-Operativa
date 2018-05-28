@@ -91,7 +91,7 @@ public class FileManager {
 
         writer.println("ClarkeWright Sequential: \r\n ");
 
-        //printDistanceMatrix(writer, dm);
+        printDistanceMatrix(writer, dm);
         //printSavingMatrix(writer, sm);
 
         printRoutes(writer, routes);
@@ -114,7 +114,7 @@ public class FileManager {
 
         writer.println("ClarkeWright Parallel: \r\n ");
 
-        //printDistanceMatrix(writer, dm);
+        printDistanceMatrix(writer, dm);
         //printSavingMatrix(writer, sm);
 
         printRoutes(writer, routes);
