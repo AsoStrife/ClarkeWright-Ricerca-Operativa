@@ -37,6 +37,7 @@ public class Route {
      * Computes the total distance of the route. We use size-1 to avoid overflow
      */
     private void calculateDistance(){
+        distance = 0;
         int size = routes.size();
         for(int i = 0; i < size-1; i++){
             distance = distance + distanceMatrix.getDistance(routes.get(i), routes.get(i+1));
@@ -47,6 +48,7 @@ public class Route {
      * Computes the total demand of the route
      */
     private void calculateDemand(){
+        demand = 0;
         int size = routes.size();
         demand = 0;
         for(int i = 0; i < size; i++){

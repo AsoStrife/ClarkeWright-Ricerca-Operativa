@@ -35,14 +35,14 @@ Distance Matrix:
 103.8 16.3 19.4 65.2 63.2 89.4 63.1 40.4 21.0 79.6 85.6 84.9 94.3 15.3 35.0 24.0 84.1 9.5 58.3 71.7 57.6 48.1 47.8 82.0 66.7 24.1 84.5 7.1 29.4 76.6 65.8 0.0 
 
 Routes: 
-Route: 0 1 31 13 27 17 2 21 6 15 30 4 0 | Demand: 100.0| Cost: 3545.4
-Route: 0 3 22 32 20 18 7 19 0 | Demand: 98.0| Cost: 1366.9
-Route: 0 5 29 8 25 14 24 0 | Demand: 98.0| Cost: 992.3
-Route: 0 9 28 26 11 23 16 10 0 | Demand: 100.0| Cost: 1554.3
+Route: 0 1 31 13 27 17 2 21 6 15 30 4 0 | Demand: 100.0| Cost: 473.2
+Route: 0 3 22 32 20 18 7 19 0 | Demand: 98.0| Cost: 234.8
+Route: 0 5 29 8 25 14 24 0 | Demand: 98.0| Cost: 256.0
+Route: 0 9 28 26 11 23 16 10 0 | Demand: 100.0| Cost: 291.5
 Route: 0 12 0 | Demand: 14.0| Cost: 23.4
 
-Total cost: 7482.3
-Execution time: 0.104
+Total cost: 1278.9
+Execution time: 0.056
 
 -----------------------------------------
 
@@ -83,12 +83,12 @@ Distance Matrix:
 103.8 16.3 19.4 65.2 63.2 89.4 63.1 40.4 21.0 79.6 85.6 84.9 94.3 15.3 35.0 24.0 84.1 9.5 58.3 71.7 57.6 48.1 47.8 82.0 66.7 24.1 84.5 7.1 29.4 76.6 65.8 0.0 
 
 Routes: 
-Route: 0 4 7 14 18 20 22 32 0 | Demand: 98.0| Cost: 341.2
+Route: 0 4 7 14 18 20 22 32 0 | Demand: 98.0| Cost: 243.6
 Route: 0 5 0 | Demand: 19.0| Cost: 28.8
-Route: 0 12 10 16 3 24 29 0 | Demand: 96.0| Cost: 223.8
-Route: 0 19 27 2 13 17 1 31 8 21 0 | Demand: 99.0| Cost: 448.4
-Route: 0 23 11 6 26 30 15 25 28 9 0 | Demand: 98.0| Cost: 695.0
+Route: 0 12 10 16 3 24 29 0 | Demand: 96.0| Cost: 200.4
+Route: 0 19 27 2 13 17 1 31 8 21 0 | Demand: 99.0| Cost: 373.2
+Route: 0 23 11 6 26 30 15 25 28 9 0 | Demand: 98.0| Cost: 304.7
 
-Total cost: 1737.2
-Execution time: 0.007
+Total cost: 1150.7
+Execution time: 0.004
 
