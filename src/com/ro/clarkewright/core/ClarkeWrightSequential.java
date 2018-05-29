@@ -164,11 +164,11 @@ public class ClarkeWrightSequential {
      * @Debug
      */
     public void debug(){
-
+        /*
         System.out.println("-- DISTANCE MATRIX --");
         distanceMatrix.print();
 
-        /*
+
         System.out.println("-- SAVINGS MATRIX --");
         savingsMatrix.print();
 

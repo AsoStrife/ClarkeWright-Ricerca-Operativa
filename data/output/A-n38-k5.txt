@@ -49,7 +49,7 @@ Route: 0 6 23 8 21 28 32 0 | Demand: 94.0| Cost: 246.2
 Route: 0 7 19 12 38 26 17 0 | Demand: 91.0| Cost: 218.3
 
 Total cost: 1440.0
-Execution time: 0.007
+Execution time: 0.009
 
 -----------------------------------------
 

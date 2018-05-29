@@ -80,7 +80,7 @@ Route: 0 13 25 54 22 19 56 58 0 | Demand: 97.0| Cost: 186.2
 Route: 0 29 30 34 64 55 0 | Demand: 86.0| Cost: 126.3
 
 Total cost: 2301.8
-Execution time: 0.024
+Execution time: 0.017
 
 -----------------------------------------
 

@@ -54,6 +54,9 @@ public class DistanceMatrix {
     public double getDistance(Node first, Node second){
         return matrix[first.getIndex()][second.getIndex()];
     }
+    public double getDistance(int i, int j){
+        return matrix[i][j];
+    }
 
     /**
      * Getter of the distance matrix

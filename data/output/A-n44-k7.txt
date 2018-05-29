@@ -56,7 +56,7 @@ Route: 0 7 26 31 30 23 39 0 | Demand: 92.0| Cost: 180.7
 Route: 0 14 15 37 41 44 0 | Demand: 80.0| Cost: 130.1
 
 Total cost: 1620.6
-Execution time: 0.006
+Execution time: 0.008
 
 -----------------------------------------
 

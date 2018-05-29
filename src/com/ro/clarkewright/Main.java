@@ -1,11 +1,9 @@
 package com.ro.clarkewright;
-
 import com.ro.clarkewright.core.ClarkeWrightParallel;
 import com.ro.clarkewright.core.ClarkeWrightSequential;
 import com.ro.clarkewright.core.Instance;
 import com.ro.clarkewright.handler.TimeHandler;
 import com.ro.clarkewright.manager.FileManager;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -13,10 +11,10 @@ import java.util.ArrayList;
  * Main class of the project.
  * It calculates first the sequential, then the parallel version of the Clarke & Wright algorithm
  */
+
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
-
         // Create the list of the files in ./data/A-VRP/
         ArrayList<String> filenames = FileManager.getAllInput();
 
@@ -26,6 +24,7 @@ public class Main {
          * String filename = filenames.get( index )
          * with index starting from 0 to filenames.size() - 1 (it should be 26)
          */
+
         for(int i = 0; i < filenames.size(); i++) {
             String filename = filenames.get(i); // "A-n80-k10";
 
@@ -40,6 +39,7 @@ public class Main {
 
             // Creates object ClarkeWrightSequential
             ClarkeWrightSequential cws = new ClarkeWrightSequential(instance);
+
             // Executes the sequential version of the algorithm
             cws.run();
             time1.print("ClarkWright Sequential");
@@ -52,18 +52,29 @@ public class Main {
             TimeHandler time2 = new TimeHandler();
             // Creates object ClarkeWrightParallel
             ClarkeWrightParallel cwp = new ClarkeWrightParallel(instance);
+
             // Executes the parallel version of the algorithm
             cwp.run();
             time2.print("ClarkWright Parallel");
             // @Debug
             //cwp.debug();
 
+
+
             // Write the full .txt file
+
             FileManager.write(filename, cws, cwp, time1.getSeconds(), time2.getSeconds());
+
             System.out.println("\n----------------------------------\n");
+
+
 
         }
 
+
+
     }
+
+
 
 }
