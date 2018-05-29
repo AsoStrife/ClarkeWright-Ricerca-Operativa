@@ -15,7 +15,7 @@ public class Node {
      * @param y y-coordinate of the point
      */
     public Node(String index, String x, String y){
-        this.index = Integer.parseInt(index);
+        this.index = Integer.parseInt(index) - 1;
         this.x = Integer.parseInt(x);
         this.y = Integer.parseInt(y);
     }

@@ -22,7 +22,7 @@ public class Instance {
     private ArrayList<Node> nodes = new ArrayList<>();
     private ArrayList<Integer> demands = new ArrayList<>();
 
-    private Node depot = new Node(0, 1, -1);
+    private Node depot; //  new Node(0, 1, -1);
     //private String eof;
 
     /**
@@ -40,6 +40,14 @@ public class Instance {
         this.setNodes(string);
         // Sets the list of demands
         this.setDemands(string);
+
+
+        // Depot is the first nodes
+        depot = nodes.get(0);
+        // Remove from the list of nodes the depot
+        nodes.remove(0);
+        // Remove from demands the depot
+        demands.remove(0);
     }
 
     /**
@@ -97,6 +105,7 @@ public class Instance {
         while (matcher.find()) {
             nodes.add( new Node(matcher.group(1), matcher.group(2), matcher.group(3)) );
         }
+
     }
 
     /**
